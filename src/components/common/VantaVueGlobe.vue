@@ -21,7 +21,7 @@ export default {
       scaleMobile: 1.00,
       color: 0xffd1,
       size: 2.00,
-      backgroundColor: 0x2a2a52
+      backgroundColor: 0x1c1c1d
     })
   }
 }

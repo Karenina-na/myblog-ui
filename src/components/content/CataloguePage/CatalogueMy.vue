@@ -1,7 +1,8 @@
 <template>
   <div class="box">
-    <div id="img">
-      <a-avatar :size="120">
+    <div>
+      <a-avatar :size="120"
+                id="img">
         <template #icon>
           <UserOutlined />
         </template>
@@ -49,17 +50,13 @@ export default {
   },
   methods: {
     SelectPageByType (type) {
-      console.log(type);
+      this.$emit('PushType', '1', type);
     }
   }
 }
 </script>
 
 <style scoped>
-@import url("@/assets/css/CataloguePage/MyHeadPortrait.css");
-@import url("@/assets/css/CataloguePage/MyIcon.css");
-@import url("@/assets/css/common/Shadow.css");
-
 /*模板样式*/
 .box {
   width: 230px;
@@ -73,18 +70,26 @@ export default {
   border-radius: 10%;
 
   box-shadow: 0px 0px 15px 3px rgba(0, 0, 0, 0.048);
+
+  transition-property: -webkit-box-shadow box-shadow;
+  transition-duration: 0.3s;
+  transition-timing-function: ease;
 }
 /*悬停阴影*/
 .box:hover {
-  -webkit-animation: shadow-drop-center 0.4s
-    cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
-  animation: shadow-drop-center 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  -webkit-box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.35);
 }
 
 /*头像样式*/
+#img {
+  transition-property: -webkit-transform transform;
+  transition-duration: 1s;
+  transition-timing-function: ease;
+}
 #img:hover {
-  -webkit-animation: rotate-center-portrait 0.6s ease-in-out both;
-  animation: rotate-center-portrait 0.6s ease-in-out both;
+  -webkit-transform: rotate(360deg);
+  transform: rotate(360deg);
 }
 
 /*名字*/
@@ -113,10 +118,13 @@ export default {
 .check .icon {
   padding-top: 5px;
   font-size: 20px;
+
+  transition-property: -webkit-transform transform;
+  transition-duration: 0.3s;
+  transition-timing-function: ease;
 }
 .check:hover .icon {
-  -webkit-animation: rotate-center-icon 0.5s cubic-bezier(0.23, 1, 0.32, 1)
-    forwards;
-  animation: rotate-center-icon 0.5s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+  -webkit-transform: rotate(540deg);
+  transform: rotate(540deg);
 }
 </style>

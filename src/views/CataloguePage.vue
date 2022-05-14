@@ -2,18 +2,32 @@
   <perfect-scrollbar>
     <ParticleVue>
     </ParticleVue>
-    <div class="catalogue">
+    <div class="catalogue Select">
       <CatalogueUpButton id="UpButton"></CatalogueUpButton>
       <div class="body">
         <div class="right">
-          <CatalogueMy></CatalogueMy>
-          <CatalogueNotice></CatalogueNotice>
+          <SearchBar id="search"
+                     @PushTitle="GetArticlesByTitle"></SearchBar>
+          <CatalogueMy id="My"
+                       @PushType="GetArticlesByType"></CatalogueMy>
+          <CatalogueNotice id="notice"></CatalogueNotice>
+          <CatalogueTag id="tag"
+                        @PushType="GetArticlesByType"></CatalogueTag>
         </div>
         <div class="left">
           <div v-for="article in articles"
                :key="article">
             <CatalogueArticle :article="article"
-                              class="article"></CatalogueArticle>
+                              class="article"
+                              id="articles"></CatalogueArticle>
+          </div>
+          <div class='foot'>
+            <a-pagination size="small"
+                          v-model:current="PageInfo.currentPage"
+                          v-model:total="PageInfo.totalNumber"
+                          pageSize="6"
+                          show-quick-jumper
+                          @change="onChange" />
           </div>
         </div>
       </div>
@@ -28,6 +42,10 @@ import CatalogueUpButton from '@/components/content/CataloguePage/CatalogueUpBut
 import CatalogueMy from '@/components/content/CataloguePage/CatalogueMy.vue'
 import CatalogueArticle from '@/components/content/CataloguePage/CatalogueArticle.vue'
 import CatalogueNotice from '@/components/content/CataloguePage/CatalogueNotice.vue'
+import CatalogueTag from '@/components/content/CataloguePage/CatalogueTag'
+import SearchBar from '@/components/common/SearchBar.vue'
+
+import { SelectArticles, SelectArticlesByType, SelectArticleByTitle } from '@/network/Select.js'
 
 
 export default {
@@ -37,30 +55,140 @@ export default {
     CatalogueUpButton,
     CatalogueMy,
     CatalogueArticle,
-    CatalogueNotice
+    CatalogueNotice,
+    CatalogueTag,
+    SearchBar
+  },
+  mounted () {
+    let type = sessionStorage.getItem("type");
+    let title = sessionStorage.getItem("title");
+    let page = sessionStorage.getItem("page");
+    this.PageInfo.currentPage = page;
+    if (type === '' && title === '') {
+      this.GetArticlesByPage(1)
+    }
+    else if (type === '') {
+      this.GetArticlesByTitle(page, title)
+    }
+    else if (title === '') {
+      this.GetArticlesByType(page, type);
+    }
+  },
+  methods: {
+    //分页查找
+    GetArticlesByPage (page) {
+      sessionStorage.setItem("type", '');
+      sessionStorage.setItem("title", '');
+      this.PageInfo.currentPage = page;
+      SelectArticles(page).then(res => {
+        if (res.code === 20042) {
+          this.articles = res.data;
+          this.PageInfo.currentPage = Number(page);
+          this.PageInfo.totalNumber = Number(res.totalPage);
+        }
+        else {
+          this.ERROR(res)
+        }
+      }, err => {
+        this.ERROR(err)
+      })
+    },
+    //类型查找
+    GetArticlesByType (page, tag) {
+      sessionStorage.setItem("type", tag);
+      sessionStorage.setItem("title", '');
+      this.PageInfo.currentPage = page;
+      SelectArticlesByType(page, tag).then(res => {
+        if (res.code === 20042) {
+          this.articles = res.data;
+          this.PageInfo.currentPage = Number(page);
+          this.PageInfo.totalNumber = Number(res.totalPage);
+        }
+        else {
+          this.ERROR(res)
+        }
+      }, err => {
+        this.ERROR(err)
+      })
+    },
+    //标题查找
+    GetArticlesByTitle (page, title) {
+      sessionStorage.setItem("title", title);
+      sessionStorage.setItem("type", '');
+      this.PageInfo.currentPage = page;
+      SelectArticleByTitle(page, title).then(res => {
+        if (res.code === 20042) {
+          this.articles = res.data;
+          this.PageInfo.currentPage = Number(page);
+          this.PageInfo.totalNumber = Number(res.totalPage);
+        }
+        else {
+          this.ERROR(res)
+        }
+      }, err => {
+        this.ERROR(err)
+      })
+    },
+    //抛出异常
+    ERROR (Message) {
+      console.log(Message)
+    },
+    //分页
+    onChange () {
+      let type = sessionStorage.getItem("type");
+      let title = sessionStorage.getItem("title");
+      let page = this.PageInfo.currentPage;
+      sessionStorage.setItem("page", page);
+      if (type === '' && title === '') {
+        this.GetArticlesByPage(page)
+      }
+      else if (type === '') {
+        this.GetArticlesByTitle(page, title)
+      }
+      else if (title === '') {
+        this.GetArticlesByType(page, type);
+      }
+
+    }
   },
   data () {
     return {
       PageInfo: {
-        totalNumber: "10",
-        currentPage: "1"
+        totalNumber: 10,
+        currentPage: 1
       },
       articles: [
-        {
-          id: "1",
-          title: "标题",
-          author: "作者",
-          date: "时间",
-          body: "文章主体",
-          tags: ['标签']
-        }
+        // {
+        //   id: "1",
+        //   title: "标题",
+        //   author: "作者",
+        //   date: "时间",
+        //   body: "文章主体",
+        //   tags: ['标签']
+        // }
       ],
+      title: ""
     }
   }
 }
 </script>
 <style scoped>
-/*滚动条配置*/
+@import url("@/assets/css/CataloguePage/My.css");
+@import url("@/assets/css/CataloguePage/NoticeTag.css");
+@import url("@/assets/css/CataloguePage/Articles.css");
+@import url("@/assets/css/CataloguePage/Search.css");
+
+/*不可选中*/
+.Select {
+  -webkit-user-select: none;
+
+  -moz-user-select: none;
+
+  -ms-user-select: none;
+
+  user-select: none;
+}
+/*滚动条样式*/
 .ps {
   position: absolute;
   top: 0;
@@ -96,5 +224,45 @@ export default {
 /*文章*/
 .article {
   margin-bottom: 20px;
+}
+
+/*分页*/
+.foot {
+  height: 40px;
+  text-align: center;
+  width: 100%;
+  top: 0;
+  right: 0;
+  left: 0;
+}
+#components-pagination-demo-mini .ant-pagination:not(:last-child) {
+  margin-bottom: 24px;
+}
+
+/*动画*/
+#search {
+  -webkit-animation: scale-in-top 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  animation: scale-in-top 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+#My {
+  -webkit-animation: tilt-in-fwd-tr 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  animation: tilt-in-fwd-tr 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+#notice {
+  -webkit-animation: slide-in-blurred-right 1s cubic-bezier(0.23, 1, 0.32, 1)
+    both;
+  animation: slide-in-blurred-right 1s cubic-bezier(0.23, 1, 0.32, 1) both;
+}
+#tag {
+  -webkit-animation: slide-in-blurred-right 1s cubic-bezier(0.23, 1, 0.32, 1)
+    0.3s both;
+  animation: slide-in-blurred-right 1s cubic-bezier(0.23, 1, 0.32, 1) 0.3s both;
+}
+
+#articles {
+  -webkit-animation: slide-in-blurred-bottom 1s cubic-bezier(0.23, 1, 0.32, 1)
+    both;
+  animation: slide-in-blurred-bottom 1s cubic-bezier(0.23, 1, 0.32, 1) both;
 }
 </style>

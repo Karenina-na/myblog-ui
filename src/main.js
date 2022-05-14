@@ -14,9 +14,8 @@ const app = createApp(App)
 app.use(store)
 
 // 解决bug：页面/路由跳转后，滚动条消失，页面无法滚动
-router.afterEach((to, from, next) => {
+router.afterEach(() => {
   document.querySelector("html").setAttribute("style", "overflow: auto !important;")
-  console.log(to, from, next);
 });
 
 app.use(PerfectScrollbar)

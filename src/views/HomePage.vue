@@ -1,10 +1,10 @@
 <template>
   <VantaVueBirds></VantaVueBirds>
-  <div class="firstBox">
+  <div class="firstBox Select">
     <HomePageInformation class="information"></HomePageInformation>
     <HomeButton class="button"></HomeButton>
   </div>
-  <CriminalRecord></CriminalRecord>
+  <CriminalRecord class="Select"></CriminalRecord>
 
 </template>
 
@@ -31,6 +31,16 @@ export default {
 <style scoped>
 @import url("@/assets/css/HomePage/HomePageButton.css");
 @import url("@/assets/css/HomePage/HomePageText.css");
+/*不可选中*/
+.Select {
+  -webkit-user-select: none;
+
+  -moz-user-select: none;
+
+  -ms-user-select: none;
+
+  user-select: none;
+}
 
 /*按钮动画*/
 .button {

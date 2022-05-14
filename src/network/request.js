@@ -19,7 +19,7 @@ service.interceptors.request.use(config => {
 
 service.interceptors.response.use(response => {
   console.log('response拦截器执行')
-  return response
+  return response.data
 }, err => {
   return Promise.resolve(err)
 })

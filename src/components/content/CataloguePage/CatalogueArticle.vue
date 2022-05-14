@@ -2,18 +2,20 @@
   <div class="box">
     <div class="left">
       <div id="head">
-        <span class="title">{{article.title}}</span>
+        <span class="title"
+              @click="selectArticleById(article.id)">{{article.title}}</span>
         <span class="tag">
           <delivered-procedure-outlined class="icon" />
           <span v-for="tag in article.tags"
                 :key="tag">{{" "+tag+" "}}</span>
         </span>
       </div>
-      <div id="body">{{article.body}}</div>
+      <div id="body"
+           v-text="article.messages"></div>
       <div id="foot">
         <customer-service-outlined class="icon" />
         <span class="message">{{article.author}}</span>
-        <loading-outlined class="icon" />
+        <tag-outlined class="icon" />
         <span class="message">{{article.date}}</span>
       </div>
     </div>
@@ -21,7 +23,7 @@
 </template>
 
 <script>
-import { DeliveredProcedureOutlined, CustomerServiceOutlined, LoadingOutlined } from '@ant-design/icons-vue';
+import { DeliveredProcedureOutlined, CustomerServiceOutlined, TagOutlined } from '@ant-design/icons-vue';
 
 export default {
   name: "CatalogueArticle",
@@ -29,15 +31,18 @@ export default {
   components: {
     DeliveredProcedureOutlined,
     CustomerServiceOutlined,
-    LoadingOutlined
+    TagOutlined
+  },
+  methods: {
+    selectArticleById (id) {
+      sessionStorage.setItem("id", id);
+      this.$router.push({ path: '/Article' })
+    }
   }
 }
 </script>
 
 <style scoped>
-@import url("@/assets/css/common/Shadow.css");
-@import url("@/assets/css/CataloguePage/MyIcon.css");
-
 .box {
   width: 630px;
   padding: 10px 20px 10px;
@@ -50,13 +55,16 @@ export default {
   border-radius: 30px;
 
   box-shadow: 0px 0px 15px 3px rgba(0, 0, 0, 0.048);
+
+  transition-property: -webkit-box-shadow box-shadow;
+  transition-duration: 0.3s;
+  transition-timing-function: ease;
 }
 
 /*悬停阴影*/
 .box:hover {
-  -webkit-animation: shadow-drop-center 0.4s
-    cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
-  animation: shadow-drop-center 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  -webkit-box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.35);
 }
 
 .left {
@@ -65,10 +73,18 @@ export default {
 
 /*标题布局*/
 .title {
-  font-size: 32px;
+  font-size: 28px;
   margin-left: 5px;
   margin-right: 70px;
   font-weight: 700;
+
+  transition-property: color;
+  transition-duration: 0.3s;
+  transition-timing-function: ease;
+}
+.title:hover {
+  color: #1e6dcd;
+  cursor: pointer;
 }
 
 /*标签和图标*/
@@ -79,12 +95,15 @@ export default {
 }
 .icon {
   margin-right: 10px;
+
+  transition-property: -webkit-transform transform;
+  transition-duration: 0.3s;
+  transition-timing-function: ease;
 }
 .tag.icon:hover,
 .tag:hover .icon {
-  -webkit-animation: rotate-center-icon 0.5s cubic-bezier(0.23, 1, 0.32, 1)
-    forwards;
-  animation: rotate-center-icon 0.5s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+  -webkit-transform: rotate(540deg);
+  transform: rotate(540deg);
 }
 
 /*文章*/

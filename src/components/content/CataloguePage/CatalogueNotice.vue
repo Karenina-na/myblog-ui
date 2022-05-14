@@ -20,14 +20,11 @@ export default {
 </script>
 
 <style scoped>
-@import url("@/assets/css/common/Shadow.css");
-
 .box {
   width: 230px;
   padding: 10px 20px 10px;
   margin-top: 20px;
   line-height: 1.6;
-  float: left;
 
   background-color: rgba(255, 255, 255, 0.705);
   border: 1px solid;
@@ -35,13 +32,16 @@ export default {
   border-radius: 20px;
 
   box-shadow: 0px 0px 15px 3px rgba(0, 0, 0, 0.048);
+
+  transition-property: -webkit-box-shadow box-shadow;
+  transition-duration: 0.3s;
+  transition-timing-function: ease;
 }
 
 /*悬停阴影*/
 .box:hover {
-  -webkit-animation: shadow-drop-center 0.4s
-    cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
-  animation: shadow-drop-center 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  -webkit-box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.35);
 }
 
 /*公告头*/
