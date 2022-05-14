@@ -3,7 +3,7 @@
     <ParticleVue>
     </ParticleVue>
     <div class="catalogue Select">
-      <CatalogueUpButton id="UpButton"></CatalogueUpButton>
+      <CatalogueUp id="UpButton"></CatalogueUp>
       <div class="body">
         <div class="right">
           <SearchBar id="search"
@@ -45,7 +45,7 @@
 <script scoped>
 // @ is an alias to /src
 import ParticleVue from '@/components/common/ParticleVue.vue'
-import CatalogueUpButton from '@/components/content/CataloguePage/CatalogueUpButton.vue'
+import CatalogueUp from '@/components/content/CataloguePage/CatalogueUp.vue'
 import CatalogueMy from '@/components/content/CataloguePage/CatalogueMy.vue'
 import CatalogueArticle from '@/components/content/CataloguePage/CatalogueArticle.vue'
 import CatalogueNotice from '@/components/content/CataloguePage/CatalogueNotice.vue'
@@ -59,7 +59,7 @@ export default {
   name: 'CataloguePage',
   components: {
     ParticleVue,
-    CatalogueUpButton,
+    CatalogueUp,
     CatalogueMy,
     CatalogueArticle,
     CatalogueNotice,
@@ -239,7 +239,7 @@ export default {
   position: relative;
   margin: auto;
   text-align: center;
-  cursor: pointer;
+  height: 70px;
 }
 /*文章*/
 .article {

@@ -27,7 +27,7 @@ export default {
   name: "ArticleBody",
   methods: {
     SelectTag (tag) {
-      console.log(tag);
+      this.$emit('PushTag', tag);
     },
     SelectMy () {
       console.log('my')

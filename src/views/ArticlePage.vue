@@ -5,7 +5,8 @@
     <div class="article">
       <div>
         <ArticleBody id="ArticleBody"
-                     :article="article"></ArticleBody>
+                     :article="article"
+                     @PushTag="GetArticlesByType"></ArticleBody>
       </div>
       <div class='foot'>
         <CriminalRecord id="CriminalRecord"></CriminalRecord>
@@ -49,6 +50,13 @@ export default {
       }, err => {
         this.ERROR(err);
       })
+    },
+    //标签跳转
+    GetArticlesByType (type) {
+      this.$store.dispatch('saveType', type)
+      this.$store.dispatch('saveTitle', '')
+      this.$store.dispatch('saveTape', 1)
+      this.$router.push({ path: '/CataloguePage' })
     },
     //抛出异常
     ERROR (Message) {
