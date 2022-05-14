@@ -35,7 +35,8 @@ export default {
   },
   methods: {
     selectArticleById (id) {
-      sessionStorage.setItem("id", id);
+      // sessionStorage.setItem("id", id);
+      this.$store.dispatch('saveArticleId', id);
       this.$router.push({ path: '/Article' })
     }
   }

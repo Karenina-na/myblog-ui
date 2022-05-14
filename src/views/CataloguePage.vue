@@ -13,6 +13,7 @@
           <CatalogueNotice id="notice"></CatalogueNotice>
           <CatalogueTag id="tag"
                         @PushType="GetArticlesByType"></CatalogueTag>
+          <div class='bottom'></div>
         </div>
         <div class="left">
           <div v-for="article in articles"
@@ -21,14 +22,20 @@
                               class="article"
                               id="articles"></CatalogueArticle>
           </div>
+          <div class='noneImg'
+               v-if="articles.length === 0">
+            <a-empty :image="simpleImage" />
+          </div>
           <div class='foot'>
             <a-pagination size="small"
+                          v-if="articles.length !== 0"
                           v-model:current="PageInfo.currentPage"
                           v-model:total="PageInfo.totalNumber"
-                          pageSize="6"
+                          v-model:pageSize="PageInfo.pageSize"
                           show-quick-jumper
                           @change="onChange" />
           </div>
+          <div class='bottom'></div>
         </div>
       </div>
     </div>
@@ -60,12 +67,15 @@ export default {
     SearchBar
   },
   mounted () {
-    let type = sessionStorage.getItem("type");
-    let title = sessionStorage.getItem("title");
-    let page = sessionStorage.getItem("page");
+    // let type = sessionStorage.getItem("type");
+    // let title = sessionStorage.getItem("title");
+    // let page = sessionStorage.getItem("page");
+    let type = this.$store.getters.getType;
+    let title = this.$store.getters.getTitle;
+    let page = this.$store.getters.getPage;
     this.PageInfo.currentPage = page;
     if (type === '' && title === '') {
-      this.GetArticlesByPage(1)
+      this.GetArticlesByPage(page)
     }
     else if (type === '') {
       this.GetArticlesByTitle(page, title)
@@ -77,9 +87,11 @@ export default {
   methods: {
     //分页查找
     GetArticlesByPage (page) {
-      sessionStorage.setItem("type", '');
-      sessionStorage.setItem("title", '');
-      this.PageInfo.currentPage = page;
+      // sessionStorage.setItem("type", '');
+      // sessionStorage.setItem("title", '');
+      this.$store.dispatch('saveType', '')
+      this.$store.dispatch('saveTitle', '')
+      this.PageInfo.currentPage = Number(page);
       SelectArticles(page).then(res => {
         if (res.code === 20042) {
           this.articles = res.data;
@@ -95,9 +107,11 @@ export default {
     },
     //类型查找
     GetArticlesByType (page, tag) {
-      sessionStorage.setItem("type", tag);
-      sessionStorage.setItem("title", '');
-      this.PageInfo.currentPage = page;
+      // sessionStorage.setItem("type", tag);
+      // sessionStorage.setItem("title", '');
+      this.$store.dispatch('saveType', tag)
+      this.$store.dispatch('saveTitle', '')
+      this.PageInfo.currentPage = Number(page);
       SelectArticlesByType(page, tag).then(res => {
         if (res.code === 20042) {
           this.articles = res.data;
@@ -113,9 +127,11 @@ export default {
     },
     //标题查找
     GetArticlesByTitle (page, title) {
-      sessionStorage.setItem("title", title);
-      sessionStorage.setItem("type", '');
-      this.PageInfo.currentPage = page;
+      // sessionStorage.setItem("title", title);
+      // sessionStorage.setItem("type", '');
+      this.$store.dispatch('saveTitle', title);
+      this.$store.dispatch('saveType', '');
+      this.PageInfo.currentPage = Number(page);
       SelectArticleByTitle(page, title).then(res => {
         if (res.code === 20042) {
           this.articles = res.data;
@@ -135,10 +151,13 @@ export default {
     },
     //分页
     onChange () {
-      let type = sessionStorage.getItem("type");
-      let title = sessionStorage.getItem("title");
+      // let type = sessionStorage.getItem("type");
+      // let title = sessionStorage.getItem("title");
+      let type = this.$store.getters.getType;
+      let title = this.$store.getters.getTitle;
       let page = this.PageInfo.currentPage;
-      sessionStorage.setItem("page", page);
+      // sessionStorage.setItem("page", page);
+      this.$store.dispatch('savePage', page);
       if (type === '' && title === '') {
         this.GetArticlesByPage(page)
       }
@@ -154,8 +173,9 @@ export default {
   data () {
     return {
       PageInfo: {
-        totalNumber: 10,
-        currentPage: 1
+        totalNumber: 0,
+        currentPage: 1,
+        pageSize: 6
       },
       articles: [
         // {
@@ -226,6 +246,16 @@ export default {
   margin-bottom: 20px;
 }
 
+/*空*/
+.noneImg,
+.noneImg a-pagination {
+  position: relative;
+  top: 200px;
+  bottom: 0;
+  width: 550px;
+  text-align: center;
+}
+
 /*分页*/
 .foot {
   height: 40px;
@@ -237,6 +267,13 @@ export default {
 }
 #components-pagination-demo-mini .ant-pagination:not(:last-child) {
   margin-bottom: 24px;
+}
+
+/*底部*/
+.bottom {
+  position: absolute;
+  height: 40px;
+  width: 1px;
 }
 
 /*动画*/

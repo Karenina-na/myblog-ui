@@ -11,3 +11,7 @@ export const getType = (state) => {
 export const getTitle = (state) => {
   return state.Title;
 }
+
+export const getPage = (state) => {
+  return state.Page;
+}

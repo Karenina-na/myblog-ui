@@ -29,7 +29,8 @@ export default {
     }
   },
   mounted () {
-    this.title = sessionStorage.getItem('title');
+    // this.title = sessionStorage.getItem('title');
+    this.title = this.$store.getters.getTitle;
   }
 }
 </script>

@@ -1,4 +1,5 @@
 import { createStore } from 'vuex'
+import createPersistedState from 'vuex-persistedstate'
 
 import state from './state';
 import * as actions from './actions';
@@ -9,5 +10,11 @@ export default createStore({
   state,
   mutations,
   actions,
-  getters
+  getters,
+  plugins: [
+    createPersistedState({
+      key: 'token',
+      storage: window.sessionStorage
+    })
+  ]
 })

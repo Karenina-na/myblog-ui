@@ -17,9 +17,12 @@ export default {
   },
   methods: {
     Enter () {
-      sessionStorage.setItem("type", '');
-      sessionStorage.setItem("title", '');
-      sessionStorage.setItem("page", 1);
+      // sessionStorage.setItem("type", '');
+      // sessionStorage.setItem("title", '');
+      // sessionStorage.setItem("page", 1);
+      this.$store.dispatch('saveType', '');
+      this.$store.dispatch('saveTitle', '');
+      this.$store.dispatch('savePage', 1);
       this.$router.push({ path: '/CataloguePage' })
     }
   }

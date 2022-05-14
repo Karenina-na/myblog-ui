@@ -12,3 +12,7 @@ export const saveArticleId = (state, id) => {
   state.ArticleId = id
 }
 
+export const savePage = (state, page) => {
+  state.Page = page
+}
+

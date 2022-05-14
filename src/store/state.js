@@ -3,5 +3,6 @@
 export default {
   Type: "",
   Title: "",
-  ArticleId: ""
+  ArticleId: "",
+  Page: ""
 }
