@@ -2,7 +2,7 @@
   <div class="box">
     <span>
       <left-circle-filled
-        :style="{ fontSize: '40px', color: 'white' }"
+        :style="{ fontSize: '40px', color: 'coral' }"
         id="BackIcon"
         @click="jump"
       />
@@ -83,7 +83,7 @@ export default {
 
 .box {
   background-color: rgba(240, 248, 255, 0);
-  color: white;
+  color: rgb(0, 0, 0);
 }
 /*返回图标*/
 #BackIcon {
@@ -132,7 +132,7 @@ export default {
   border: 0;
   background: none;
   text-transform: uppercase;
-  color: #ffffff;
+  color: #000000;
   position: relative;
   outline: none;
   padding: 10px 15px;
@@ -167,14 +167,14 @@ export default {
 }
 
 .tagBox:hover::before {
-  border-top-color: #ffffff;
-  border-right-color: #ffffff;
+  border-top-color: #000000;
+  border-right-color: #000000;
   transition: width 0.2s ease-out, height 0.2s ease-out 0.2s;
 }
 
 .tagBox:hover::after {
-  border-bottom-color: #ffffff;
-  border-left-color: #ffffff;
+  border-bottom-color: #000000;
+  border-left-color: #000000;
   transition: border-color 0s ease-out 0.4s, width 0.2s ease-out 0.4s,
     height 0.2s ease-out 0.6s;
 }

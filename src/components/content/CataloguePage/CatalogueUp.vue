@@ -46,7 +46,7 @@ export default {
         case 0: { this.$router.push({ path: '/' }); break; }
         case 1: { console.log('分类'); break; }
         case 2: { console.log('dunrui'); break; }
-        case 3: { console.log('关于'); break; }
+        case 3: { this.$router.push({path: '/AboutMy' }); break; }
       }
     },
     Flush () {

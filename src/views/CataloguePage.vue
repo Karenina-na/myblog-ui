@@ -1,41 +1,39 @@
 <template>
   <perfect-scrollbar>
-    <ParticleVue>
-    </ParticleVue>
+    <ParticleVue> </ParticleVue>
     <div class="catalogue Select">
       <CatalogueUp id="UpButton"></CatalogueUp>
       <div class="body">
         <div class="right">
-          <SearchBar id="search"
-                     @PushTitle="GetArticlesByTitle"></SearchBar>
-          <CatalogueMy id="My"
-                       @PushType="GetArticlesByType"></CatalogueMy>
+          <SearchBar id="search" @PushTitle="GetArticlesByTitle"></SearchBar>
+          <CatalogueMy id="My" @PushType="GetArticlesByType"></CatalogueMy>
           <CatalogueNotice id="notice"></CatalogueNotice>
-          <CatalogueTag id="tag"
-                        @PushType="GetArticlesByType"></CatalogueTag>
-          <div class='bottom'></div>
+          <CatalogueTag id="tag" @PushType="GetArticlesByType"></CatalogueTag>
+          <div class="bottom"></div>
         </div>
         <div class="left">
-          <div v-for="article in articles"
-               :key="article">
-            <CatalogueArticle :article="article"
-                              class="article"
-                              id="articles"></CatalogueArticle>
+          <div v-for="article in articles" :key="article">
+            <CatalogueArticle
+              :article="article"
+              class="article"
+              id="articles"
+            ></CatalogueArticle>
           </div>
-          <div class='noneImg'
-               v-if="articles.length === 0">
+          <div class="noneImg" v-if="articles.length === 0">
             <a-empty :image="simpleImage" />
           </div>
-          <div class='foot'>
-            <a-pagination size="small"
-                          v-if="articles.length !== 0"
-                          v-model:current="PageInfo.currentPage"
-                          v-model:total="PageInfo.totalNumber"
-                          v-model:pageSize="PageInfo.pageSize"
-                          show-quick-jumper
-                          @change="onChange" />
+          <div class="foot">
+            <a-pagination
+              size="small"
+              v-if="articles.length !== 0"
+              v-model:current="PageInfo.currentPage"
+              v-model:total="PageInfo.totalNumber"
+              v-model:pageSize="PageInfo.pageSize"
+              show-quick-jumper
+              @change="onChange"
+            />
           </div>
-          <div class='bottom'></div>
+          <div class="bottom"></div>
         </div>
       </div>
     </div>
@@ -44,19 +42,22 @@
 
 <script scoped>
 // @ is an alias to /src
-import ParticleVue from '@/components/common/ParticleVue.vue'
-import CatalogueUp from '@/components/content/CataloguePage/CatalogueUp.vue'
-import CatalogueMy from '@/components/content/CataloguePage/CatalogueMy.vue'
-import CatalogueArticle from '@/components/content/CataloguePage/CatalogueArticle.vue'
-import CatalogueNotice from '@/components/content/CataloguePage/CatalogueNotice.vue'
-import CatalogueTag from '@/components/content/CataloguePage/CatalogueTag'
-import SearchBar from '@/components/common/SearchBar.vue'
+import ParticleVue from "@/components/common/ParticleVue.vue";
+import CatalogueUp from "@/components/content/CataloguePage/CatalogueUp.vue";
+import CatalogueMy from "@/components/content/CataloguePage/CatalogueMy.vue";
+import CatalogueArticle from "@/components/content/CataloguePage/CatalogueArticle.vue";
+import CatalogueNotice from "@/components/content/CataloguePage/CatalogueNotice.vue";
+import CatalogueTag from "@/components/content/CataloguePage/CatalogueTag";
+import SearchBar from "@/components/common/SearchBar.vue";
 
-import { SelectArticles, SelectArticlesByType, SelectArticleByTitle } from '@/network/Select.js'
-
+import {
+  SelectArticles,
+  SelectArticlesByType,
+  SelectArticleByTitle,
+} from "@/network/Select.js";
 
 export default {
-  name: 'CataloguePage',
+  name: "CataloguePage",
   components: {
     ParticleVue,
     CatalogueUp,
@@ -64,9 +65,9 @@ export default {
     CatalogueArticle,
     CatalogueNotice,
     CatalogueTag,
-    SearchBar
+    SearchBar,
   },
-  mounted () {
+  mounted() {
     // let type = sessionStorage.getItem("type");
     // let title = sessionStorage.getItem("title");
     // let page = sessionStorage.getItem("page");
@@ -74,108 +75,109 @@ export default {
     let title = this.$store.getters.getTitle;
     let page = this.$store.getters.getPage;
     this.PageInfo.currentPage = page;
-    if (type === '' && title === '') {
-      this.GetArticlesByPage(page)
-    }
-    else if (type === '') {
-      this.GetArticlesByTitle(page, title)
-    }
-    else if (title === '') {
+    if (type === "" && title === "") {
+      this.GetArticlesByPage(page);
+    } else if (type === "") {
+      this.GetArticlesByTitle(page, title);
+    } else if (title === "") {
       this.GetArticlesByType(page, type);
     }
   },
   methods: {
     //分页查找
-    GetArticlesByPage (page) {
+    GetArticlesByPage(page) {
       // sessionStorage.setItem("type", '');
       // sessionStorage.setItem("title", '');
-      this.$store.dispatch('saveType', '')
-      this.$store.dispatch('saveTitle', '')
+      this.$store.dispatch("saveType", "");
+      this.$store.dispatch("saveTitle", "");
       this.PageInfo.currentPage = Number(page);
-      SelectArticles(page).then(res => {
-        if (res.code === 20042) {
-          this.articles = res.data;
-          this.PageInfo.currentPage = Number(page);
-          this.PageInfo.totalNumber = Number(res.totalPage);
+      SelectArticles(page).then(
+        (res) => {
+          if (res.code === 20042) {
+            this.articles = res.data;
+            this.PageInfo.currentPage = Number(page);
+            this.PageInfo.totalNumber = Number(res.totalPage);
+          } else {
+            this.ERROR(res);
+          }
+        },
+        (err) => {
+          this.ERROR(err);
         }
-        else {
-          this.ERROR(res)
-        }
-      }, err => {
-        this.ERROR(err)
-      })
+      );
     },
     //类型查找
-    GetArticlesByType (page, tag) {
+    GetArticlesByType(page, tag) {
       // sessionStorage.setItem("type", tag);
       // sessionStorage.setItem("title", '');
-      this.$store.dispatch('saveType', tag)
-      this.$store.dispatch('saveTitle', '')
+      this.$store.dispatch("saveType", tag);
+      this.$store.dispatch("saveTitle", "");
       this.PageInfo.currentPage = Number(page);
-      SelectArticlesByType(page, tag).then(res => {
-        if (res.code === 20042) {
-          this.articles = res.data;
-          this.PageInfo.currentPage = Number(page);
-          this.PageInfo.totalNumber = Number(res.totalPage);
+      SelectArticlesByType(page, tag).then(
+        (res) => {
+          if (res.code === 20042) {
+            this.articles = res.data;
+            this.PageInfo.currentPage = Number(page);
+            this.PageInfo.totalNumber = Number(res.totalPage);
+          } else {
+            this.ERROR(res);
+          }
+        },
+        (err) => {
+          this.ERROR(err);
         }
-        else {
-          this.ERROR(res)
-        }
-      }, err => {
-        this.ERROR(err)
-      })
+      );
     },
     //标题查找
-    GetArticlesByTitle (page, title) {
+    GetArticlesByTitle(page, title) {
       // sessionStorage.setItem("title", title);
       // sessionStorage.setItem("type", '');
-      this.$store.dispatch('saveTitle', title);
-      this.$store.dispatch('saveType', '');
+      this.$store.dispatch("saveTitle", title);
+      this.$store.dispatch("saveType", "");
       this.PageInfo.currentPage = Number(page);
-      SelectArticleByTitle(page, title).then(res => {
-        if (res.code === 20042) {
-          this.articles = res.data;
-          this.PageInfo.currentPage = Number(page);
-          this.PageInfo.totalNumber = Number(res.totalPage);
+      SelectArticleByTitle(page, title).then(
+        (res) => {
+          if (res.code === 20042) {
+            this.articles = res.data;
+            this.PageInfo.currentPage = Number(page);
+            this.PageInfo.totalNumber = Number(res.totalPage);
+          } else {
+            this.ERROR(res);
+          }
+        },
+        (err) => {
+          this.ERROR(err);
         }
-        else {
-          this.ERROR(res)
-        }
-      }, err => {
-        this.ERROR(err)
-      })
+      );
     },
     //抛出异常
-    ERROR (Message) {
-      console.log(Message)
+    ERROR(Message) {
+      console.log(Message);
     },
     //分页
-    onChange () {
+    onChange() {
       // let type = sessionStorage.getItem("type");
       // let title = sessionStorage.getItem("title");
       let type = this.$store.getters.getType;
       let title = this.$store.getters.getTitle;
       let page = this.PageInfo.currentPage;
       // sessionStorage.setItem("page", page);
-      this.$store.dispatch('savePage', page);
-      if (type === '' && title === '') {
-        this.GetArticlesByPage(page)
-      }
-      else if (type === '') {
-        this.GetArticlesByTitle(page, title)
-      }
-      else if (title === '') {
+      this.$store.dispatch("savePage", page);
+      if (type === "" && title === "") {
+        this.GetArticlesByPage(page);
+      } else if (type === "") {
+        this.GetArticlesByTitle(page, title);
+      } else if (title === "") {
         this.GetArticlesByType(page, type);
       }
-
-    }
+    },
   },
-  data () {
+  data() {
     return {
       PageInfo: {
         totalNumber: 0,
         currentPage: 1,
-        pageSize: 6
+        pageSize: 6,
       },
       articles: [
         // {
@@ -187,10 +189,10 @@ export default {
         //   tags: ['标签']
         // }
       ],
-      title: ""
-    }
-  }
-}
+      title: "",
+    };
+  },
+};
 </script>
 <style scoped>
 @import url("@/assets/css/CataloguePage/My.css");

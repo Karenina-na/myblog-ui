@@ -1,14 +1,16 @@
 <template>
   <perfect-scrollbar>
-    <VantaVueGlobe></VantaVueGlobe>
+    <VantaVueGlobeWhite></VantaVueGlobeWhite>
     <UpSelect id="UpSelect"></UpSelect>
     <div class="article">
       <div>
-        <ArticleBody id="ArticleBody"
-                     :article="article"
-                     @PushTag="GetArticlesByType"></ArticleBody>
+        <ArticleBody
+          id="ArticleBody"
+          :article="article"
+          @PushTag="GetArticlesByType"
+        ></ArticleBody>
       </div>
-      <div class='foot'>
+      <div class="foot">
         <CriminalRecord id="CriminalRecord"></CriminalRecord>
       </div>
     </div>
@@ -18,52 +20,54 @@
 <script>
 // @ is an alias to /src
 
-import VantaVueGlobe from '@/components/common/VantaVueGlobe.vue'
-import UpSelect from '@/components/content/ArticlePage/UpSelect.vue'
-import ArticleBody from '@/components/content/ArticlePage/ArticleBody.vue'
-import CriminalRecord from '@/components/content/CriminalRecord.vue'
-import { SelectArticleById } from '@/network/Select.js'
+import VantaVueGlobeWhite from "@/components/common/VantaVueGlobeWhite.vue";
+import UpSelect from "@/components/content/ArticlePage/UpSelect.vue";
+import ArticleBody from "@/components/content/ArticlePage/ArticleBody.vue";
+import CriminalRecord from "@/components/content/CriminalRecord.vue";
+import { SelectArticleById } from "@/network/Select.js";
 
 export default {
-  name: 'ArticlePage',
+  name: "ArticlePage",
   components: {
-    VantaVueGlobe,
+    VantaVueGlobeWhite,
     UpSelect,
     ArticleBody,
-    CriminalRecord
+    CriminalRecord,
   },
-  mounted () {
-    this.GetArticlesById()
+  mounted() {
+    this.GetArticlesById();
   },
   methods: {
     //文章查找
-    GetArticlesById () {
+    GetArticlesById() {
       // let id = sessionStorage.getItem("id");
       let id = this.$store.getters.getArticleId;
-      SelectArticleById(id).then(res => {
-        if (res.code === 20042) {
-          this.article = res.data;
+      SelectArticleById(id).then(
+        (res) => {
+          if (res.code === 20042) {
+            this.article = res.data;
+          } else {
+            this.ERROR(res);
+          }
+        },
+        (err) => {
+          this.ERROR(err);
         }
-        else {
-          this.ERROR(res)
-        }
-      }, err => {
-        this.ERROR(err);
-      })
+      );
     },
     //标签跳转
-    GetArticlesByType (type) {
-      this.$store.dispatch('saveType', type)
-      this.$store.dispatch('saveTitle', '')
-      this.$store.dispatch('saveTape', 1)
-      this.$router.push({ path: '/CataloguePage' })
+    GetArticlesByType(type) {
+      this.$store.dispatch("saveType", type);
+      this.$store.dispatch("saveTitle", "");
+      this.$store.dispatch("saveTape", 1);
+      this.$router.push({ path: "/CataloguePage" });
     },
     //抛出异常
-    ERROR (Message) {
-      console.log(Message)
-    }
+    ERROR(Message) {
+      console.log(Message);
+    },
   },
-  data () {
+  data() {
     return {
       article: {
         // id: "1",
@@ -72,10 +76,10 @@ export default {
         // date: "时间",
         // body: "文章主体",
         // tags: ['标签']
-      }
-    }
-  }
-}
+      },
+    };
+  },
+};
 </script>
 <style scoped>
 @import url("@/assets/css/ArticlePage/ArticleBody.css");

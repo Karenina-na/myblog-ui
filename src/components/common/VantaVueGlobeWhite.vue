@@ -3,28 +3,29 @@
 </template>
 <script>
 /* eslint-disable */
-import * as THREE from '@/assets/vanta/three.r119.min.js'
-import GLOBE from '@/assets/vanta/vanta.globe.min.js'
+import * as THREE from "@/assets/vanta/three.r119.min.js";
+import GLOBE from "@/assets/vanta/vanta.globe.min.js";
 
 export default {
-  name: "VantaVueGlobe",
-  mounted () {
+  name: "VantaVueGlobeWhite",
+  mounted() {
     GLOBE({
       THREE,
       el: "#background",
       mouseControls: true,
       touchControls: true,
       gyroControls: false,
-      minHeight: 200.00,
-      minWidth: 200.00,
-      scale: 1.00,
-      scaleMobile: 1.00,
-      color: 0xffd1,
-      size: 2.00,
-      backgroundColor: 0x1c1c1d
-    })
-  }
-}
+      minHeight: 200.0,
+      minWidth: 200.0,
+      scale: 1.0,
+      scaleMobile: 1.0,
+      color: 0x3f4aff,
+      color2: 0xff0000,
+      size: 2.0,
+      backgroundColor: 0xf5f5f5,
+    });
+  },
+};
 </script>
 
 <style scoped>
