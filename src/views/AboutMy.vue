@@ -1,19 +1,22 @@
 <template>
   <perfect-scrollbar>
     <VantaVueGlobeWhite></VantaVueGlobeWhite>
-    <UpSelect id="UpSelect" class="Select"> </UpSelect>
+    <UpSelect id="UpSelect"
+              class="Select"> </UpSelect>
     <div class="body">
       <div class="title">关于我</div>
       <div class="message">
         <MyMessage id="MyMessage"></MyMessage>
       </div>
       <div id="line">
-        <a-divider
-          ><user-outlined style="color: rgba(0, 0, 0, 0.3)"
-        /></a-divider>
+        <a-divider>
+          <user-outlined style="color: rgba(0, 0, 0, 0.3)" />
+        </a-divider>
       </div>
-      <div class="title">关于博客</div>
-      <div>
+      <div class="title">关于博客
+        <calendar-outlined />
+      </div>
+      <div class="TimeTree">
         <TimeTree id="TimeTree"></TimeTree>
       </div>
     </div>
@@ -41,6 +44,10 @@ export default {
 
 <style scoped>
 @import url("@/assets/css/AboutMy/UpSelect.css");
+@import url("@/assets/css/AboutMy/TimeTree.css");
+@import url("@/assets/css/AboutMy/MyMessage.css");
+@import url("@/assets/css/AboutMy/Title.css");
+@import url("@/assets/css/AboutMy/Body.css");
 
 .Select {
   -webkit-user-select: none;
@@ -67,6 +74,7 @@ export default {
 /*主体*/
 .body {
   position: relative;
+  padding-top: 10px;
   top: 100px;
   border-radius: 30px;
   text-align: center;
@@ -78,10 +86,21 @@ export default {
   transition-property: -webkit-box-shadow box-shadow;
   transition-duration: 0.3s;
   transition-timing-function: ease;
+
+  -webkit-animation: scale-up-center 0.5s cubic-bezier(0.39, 0.575, 0.565, 1)
+    both;
+  animation: scale-up-center 0.5s cubic-bezier(0.39, 0.575, 0.565, 1) both;
 }
 .body:hover {
   -webkit-box-shadow: 0 0 20px 8px rgba(0, 0, 0, 0.144);
   box-shadow: 0 0 20px 8px rgba(0, 0, 0, 0.144);
+}
+
+/*信息*/
+.message {
+  -webkit-animation: tilt-in-fwd-tr 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94)
+    both;
+  animation: tilt-in-fwd-tr 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 }
 
 /*滚动条样式*/
@@ -101,11 +120,14 @@ export default {
   margin: auto;
 }
 
-/*标题*/
+/*大字标题*/
 .title {
   font-size: 35px;
   font-weight: 700;
   margin-top: 20px;
+
+  -webkit-animation: fade-in 1.2s cubic-bezier(0.39, 0.575, 0.565, 1) both;
+  animation: fade-in 1.2s cubic-bezier(0.39, 0.575, 0.565, 1) both;
 }
 
 /*树状图*/
@@ -116,6 +138,8 @@ export default {
   margin: auto;
   position: relative;
 }
-
-/*简介*/
+.TimeTree {
+  -webkit-animation: rotate-in-2-cw 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  animation: rotate-in-2-cw 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
 </style>
