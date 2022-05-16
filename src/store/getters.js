@@ -15,3 +15,7 @@ export const getTitle = (state) => {
 export const getPage = (state) => {
   return state.Page;
 }
+
+export const getFlag = (state) => {
+  return state.Flag;
+}

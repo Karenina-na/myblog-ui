@@ -11,14 +11,14 @@ service.interceptors.request.use(config => {
   config.headers = {
     'Content-Type': 'application/json'
   }
-  console.log('request拦截器执行')
+
   return config
 }, err => {
   Promise.reject(err)
 })
 
 service.interceptors.response.use(response => {
-  console.log('response拦截器执行')
+
   return response.data
 }, err => {
   return Promise.resolve(err)

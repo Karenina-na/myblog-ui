@@ -4,5 +4,6 @@ export default {
   Type: "",
   Title: "",
   ArticleId: "",
-  Page: ""
+  Page: "",
+  Flag: ""
 }

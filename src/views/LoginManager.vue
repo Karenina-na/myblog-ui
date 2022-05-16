@@ -1,20 +1,41 @@
 <template>
   <div class="background"></div>
   <div class="box">
-    <LoginBox id="login"></LoginBox>
+    <LoginBox id="login" @PushMessage="Login"></LoginBox>
   </div>
 </template>
 <script type="text/javascript">
 import LoginBox from "@/components/common/LoginBox";
+import { LoginService } from "@/network/Manage.js";
 
 export default {
   name: "LoginManager",
   components: { LoginBox },
-  methods: {},
-  data () {
-    return {}
-  }
-}
+  methods: {
+    Login(username, password) {
+      LoginService(username, password).then(
+        (res) => {
+          if (res.code === 20042) {
+            this.$store.dispatch("saveFlag", res.code);
+            this.$router.push("/rootManager/View");
+          } else {
+            this.ERROR(res);
+          }
+        },
+        (err) => {
+          this.ERROR(err);
+        }
+      );
+    },
+    //抛出异常
+    ERROR(res) {
+      console.log(res);
+    },
+  },
+  data() {
+    return {};
+  },
+};
 </script>
 <style scoped>
 /*背景*/

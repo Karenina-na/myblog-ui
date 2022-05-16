@@ -16,3 +16,7 @@ export const savePage = ({ commit }, page) => {
   commit('savePage', page)
 }
 
+export const saveFlag = ({ commit }, flag) => {
+  commit('saveFlag', flag);
+}
+

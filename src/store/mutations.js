@@ -16,3 +16,7 @@ export const savePage = (state, page) => {
   state.Page = page
 }
 
+export const saveFlag = (state, flag) => {
+  state.Flag = flag
+}
+

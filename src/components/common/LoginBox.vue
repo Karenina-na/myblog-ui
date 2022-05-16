@@ -3,44 +3,46 @@
     <div class="login">LOGIN</div>
     <div class="input">
       <span class="title">USERNAME</span>
-      <a-input v-model:value="username"
-               class="in"
-               placeholder="Username" />
+      <a-input v-model:value="username" class="in" placeholder="Username" />
     </div>
     <div class="input">
       <span class="title">PASSWORD</span>
-      <a-input-password v-model:value="password"
-                        class="in"
-                        placeholder="Password" />
+      <a-input-password
+        v-model:value="password"
+        class="in"
+        placeholder="Password"
+      />
     </div>
     <div id="bottom">
-      <a-button type="primary"
-                class="bottom"
-                @click="this.Login()">Login</a-button>
+      <a-button type="primary" class="bottom" @click="this.Login()"
+        >Login</a-button
+      >
       <a-button @click="this.Reset()">Reset</a-button>
     </div>
   </div>
 </template>
 <script type="text/javascript">
 export default {
-  name: 'LoginBox',
+  name: "LoginBox",
   components: {},
-  data () {
+  data() {
     return {
       username: "",
-      password: ""
-    }
+      password: "",
+    };
   },
   methods: {
-    Reset () {
+    Reset() {
       this.username = "";
-      this.password = ""
+      this.password = "";
     },
-    Login () {
-      console.log(this.username, this.password)
-    }
-  }
-}
+    Login() {
+      let username = this.username;
+      let password = this.password;
+      this.$emit("PushMessage", username, password);
+    },
+  },
+};
 </script>
 <style scoped>
 .content {
