@@ -1,8 +1,8 @@
 <template>
   <div class="Enter">
-    <div class="border">
+    <div class="border" @click="Enter">
       <right-circle-outlined id="Enter"
-                             @click="Enter" />
+                              />
     </div>
   </div>
 </template>
