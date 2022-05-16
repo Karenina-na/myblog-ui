@@ -1,8 +1,7 @@
 <template>
   <perfect-scrollbar>
     <VantaVueGlobeWhite></VantaVueGlobeWhite>
-    <UpSelect id="UpSelect"
-              class="Select"> </UpSelect>
+    <UpSelect id="UpSelect" class="Select"> </UpSelect>
     <div class="body">
       <div class="title">关于我</div>
       <div class="message">
@@ -13,7 +12,8 @@
           <user-outlined style="color: rgba(0, 0, 0, 0.3)" />
         </a-divider>
       </div>
-      <div class="title">关于博客
+      <div class="title">
+        关于博客
         <calendar-outlined />
       </div>
       <div class="TimeTree">
@@ -28,7 +28,7 @@ import VantaVueGlobeWhite from "@/components/common/VantaVueGlobeWhite.vue";
 import UpSelect from "@/components/content/AboutMy/UpSelect.vue";
 import TimeTree from "@/components/content/AboutMy/TimeTree.vue";
 import MyMessage from "@/components/content/AboutMy/MyMessage.vue";
-import { UserOutlined } from "@ant-design/icons-vue";
+import { UserOutlined, CalendarOutlined } from "@ant-design/icons-vue";
 
 export default {
   components: {
@@ -37,6 +37,7 @@ export default {
     TimeTree,
     MyMessage,
     UserOutlined,
+    CalendarOutlined,
   },
   name: "AboutMy",
 };

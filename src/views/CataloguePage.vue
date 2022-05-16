@@ -185,7 +185,7 @@ export default {
         //   title: "标题",
         //   author: "作者",
         //   date: "时间",
-        //   body: "文章主体",
+        //   messages: "文章主体",
         //   tags: ['标签']
         // }
       ],
