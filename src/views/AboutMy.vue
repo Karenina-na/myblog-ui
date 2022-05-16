@@ -118,6 +118,4 @@ export default {
 }
 
 /*简介*/
-#MyMessage {
-}
 </style>

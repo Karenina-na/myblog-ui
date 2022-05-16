@@ -1,6 +1,6 @@
 <template>
   <perfect-scrollbar>
-    <VantaVueGlobeWhite></VantaVueGlobeWhite>
+    <VantaVueGlobeBlack></VantaVueGlobeBlack>
     <UpSelect id="UpSelect"></UpSelect>
     <div class="article">
       <div>
@@ -20,7 +20,7 @@
 <script>
 // @ is an alias to /src
 
-import VantaVueGlobeWhite from "@/components/common/VantaVueGlobeWhite.vue";
+import VantaVueGlobeBlack from "@/components/common/VantaVueGlobeBlack.vue";
 import UpSelect from "@/components/content/ArticlePage/UpSelect.vue";
 import ArticleBody from "@/components/content/ArticlePage/ArticleBody.vue";
 import CriminalRecord from "@/components/content/CriminalRecord.vue";
@@ -29,7 +29,7 @@ import { SelectArticleById } from "@/network/Select.js";
 export default {
   name: "ArticlePage",
   components: {
-    VantaVueGlobeWhite,
+    VantaVueGlobeBlack,
     UpSelect,
     ArticleBody,
     CriminalRecord,
