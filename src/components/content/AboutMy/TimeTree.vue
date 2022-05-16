@@ -1,33 +1,63 @@
 <template>
   <a-timeline mode="alternate">
-    <a-timeline-item>Create a services site 2015-09-01</a-timeline-item>
-    <a-timeline-item color="green"
-      >Solve initial network problems 2015-09-01</a-timeline-item
-    >
-    <a-timeline-item>
-      <template #dot><ClockCircleOutlined style="font-size: 16px" /></template>
-      Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium
-      doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo
-      inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+    <!-- <a-timeline-item class="section">
+      <template #dot>
+        <xxx></xxx>
+      </template>
+      xxx
+    </a-timeline-item> -->
+    <a-timeline-item class="section">
+      <template #dot>
+        <bank-outlined style="font-size: 20px" />
+      </template>
+      vue-cli前端重构，优化网页性能 2022-5-16
     </a-timeline-item>
-    <a-timeline-item color="red"
-      >Network problems being solved 2015-09-01</a-timeline-item
-    >
-    <a-timeline-item>Create a services site 2015-09-01</a-timeline-item>
-    <a-timeline-item>
-      <template #dot><ClockCircleOutlined style="font-size: 16px" /></template>
-      Technical testing 2015-09-01
+    <a-timeline-item class="section">
+      <template #dot>
+        <fund-outlined />
+      </template>
+      加入后端缓存结构 2022-05-04
+    </a-timeline-item>
+    <a-timeline-item color="red" class="section">
+      <template #dot>
+        <apartment-outlined />
+      </template>
+      测试阶段 2022-05-01
+    </a-timeline-item>
+    <a-timeline-item class="section">
+      <template #dot><ClockCircleOutlined style="font-size: 20px" /></template>
+      项目构建初步完成 2022-04-29
     </a-timeline-item>
   </a-timeline>
 </template>
 <script>
-import { ClockCircleOutlined } from "@ant-design/icons-vue";
+import {
+  ClockCircleOutlined,
+  FundOutlined,
+  ApartmentOutlined,
+  BankOutlined,
+} from "@ant-design/icons-vue";
 
 export default {
   components: {
     ClockCircleOutlined,
+    FundOutlined,
+    ApartmentOutlined,
+    BankOutlined,
   },
   name: "TimeTree",
 };
 </script>
-<style scoped></style>
+<style scoped>
+.section {
+  transition: transform 0.32s !important;
+  cursor: default;
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.466);
+}
+.section:hover {
+  transform: scale(1.1);
+  transition-duration: 0.08s;
+  color: rgba(82, 163, 159, 0.747);
+}
+</style>
