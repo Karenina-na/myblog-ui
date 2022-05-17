@@ -1,10 +1,15 @@
 <template>
   <div class="box Select">
-    <div><ManageUpVue @pushFlag="ChangeFlag"></ManageUpVue></div>
+    <div><ManageUpVue @pushFlag="ChangeFlag" :flag="flag"></ManageUpVue></div>
     <div v-if="this.flag === '0'">
       <div v-for="article in articles" :key="article">
         <ArticleBody :article="article" class="article"></ArticleBody>
-        <RightButton :id="article.id" class="button"></RightButton>
+        <RightButton
+          :id="article.id"
+          class="button"
+          @pushDelete="Delete"
+          @pushUpdate="Update"
+        ></RightButton>
       </div>
     </div>
   </div>
@@ -13,6 +18,7 @@
 import ManageUpVue from "@/components/common/ManageUp.vue";
 import ArticleBody from "@/components/content/ManagerView/ArticlesBody.vue";
 import RightButton from "@/components/content/ManagerView/RightButton.vue";
+import { message } from "ant-design-vue";
 
 export default {
   name: "ManagerView",
@@ -21,6 +27,15 @@ export default {
     //改变显示状态
     ChangeFlag(flag) {
       this.flag = flag;
+    },
+    //命令
+    Delete(id) {
+      console.log(id);
+      message.success("已删除");
+    },
+    Update(id) {
+      this.flag = "singal";
+      console.log(id);
     },
   },
   data() {

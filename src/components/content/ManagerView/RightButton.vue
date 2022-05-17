@@ -4,22 +4,28 @@
       <a-button type="primary" @click="Update" size="middle">修改</a-button>
     </div>
     <div class="delete">
-      <a-button type="primary" danger @click="Delete" size="middle"
-        >删除</a-button
-      >
+      <a-popconfirm title="Are you sure？" @confirm="Delete" @cancel="cancel">
+        <a-button type="primary" danger size="middle">删除</a-button>
+      </a-popconfirm>
     </div>
   </div>
 </template>
 <script>
+import { message } from "ant-design-vue";
+
 export default {
+  components: {},
   name: "RightButton",
   props: ["id"],
   methods: {
     Update() {
-      console.log(this.id);
+      this.$emit("pushUpdate", this.id);
     },
     Delete() {
-      console.log(this.id);
+      this.$emit("pushDelete", this.id);
+    },
+    cancel() {
+      message.warning("已取消操作");
     },
   },
 };

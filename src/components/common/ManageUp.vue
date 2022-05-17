@@ -19,7 +19,7 @@
   </a-menu>
 </template>
 <script>
-import { ref } from "vue";
+import { ref, toRef } from "vue";
 import { MailOutlined, AppstoreOutlined } from "@ant-design/icons-vue";
 export default {
   name: "ManageUpVue",
@@ -27,6 +27,7 @@ export default {
     MailOutlined,
     AppstoreOutlined,
   },
+  props: ["flag"],
   methods: {
     ChangeCurrent({ key }) {
       switch (key) {
@@ -41,10 +42,26 @@ export default {
       }
     },
   },
+  mounted() {
+    this.current = ref(["all"]);
+  },
+  watch: {
+    value: function (a) {
+      switch (a) {
+        case "0": {
+          this.current = toRef(["all"]);
+          break;
+        }
+        case "1": {
+          this.current = toRef(["singal"]);
+          break;
+        }
+      }
+    },
+  },
   data() {
-    const current = ref(["all"]);
     return {
-      current,
+      current: toRef(["all"]),
     };
   },
 };
