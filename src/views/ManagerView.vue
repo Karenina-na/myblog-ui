@@ -12,17 +12,24 @@
         ></RightButton>
       </div>
     </div>
+    <div v-if="this.flag === '1'">
+      <!--文章修改界面-->
+      <div class="box Select">
+        <ArticleUpdateView></ArticleUpdateView>
+      </div>
+    </div>
   </div>
 </template>
 <script>
 import ManageUpVue from "@/components/common/ManageUp.vue";
 import ArticleBody from "@/components/content/ManagerView/ArticlesBody.vue";
 import RightButton from "@/components/content/ManagerView/RightButton.vue";
+import ArticleUpdateView from "@/components/common/ArticleUpdateView.vue";
 import { message } from "ant-design-vue";
 
 export default {
   name: "ManagerView",
-  components: { ManageUpVue, ArticleBody, RightButton },
+  components: { ManageUpVue, ArticleBody, RightButton, ArticleUpdateView },
   methods: {
     //改变显示状态
     ChangeFlag(flag) {
@@ -34,7 +41,7 @@ export default {
       message.success("已删除");
     },
     Update(id) {
-      this.flag = "singal";
+      this.flag = "1";
       console.log(id);
     },
   },
@@ -42,22 +49,6 @@ export default {
     return {
       flag: "0",
       articles: [
-        {
-          id: "1",
-          title: "标题",
-          author: "作者",
-          date: "时间",
-          messages: "文章主体",
-          tags: ["标签"],
-        },
-        {
-          id: "1",
-          title: "标题",
-          author: "作者",
-          date: "时间",
-          messages: "文章主体",
-          tags: ["标签"],
-        },
         {
           id: "1",
           title: "标题",

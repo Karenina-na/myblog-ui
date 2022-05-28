@@ -14,12 +14,12 @@
       <template #icon>
         <appstore-outlined />
       </template>
-      文章
+      编辑
     </a-menu-item>
   </a-menu>
 </template>
 <script>
-import { ref, toRef } from "vue";
+import { ref } from "vue";
 import { MailOutlined, AppstoreOutlined } from "@ant-design/icons-vue";
 export default {
   name: "ManageUpVue",
@@ -42,26 +42,24 @@ export default {
       }
     },
   },
-  mounted() {
-    this.current = ref(["all"]);
-  },
   watch: {
-    value: function (a) {
+    flag: function (a) {
       switch (a) {
         case "0": {
-          this.current = toRef(["all"]);
+          this.current = ref(["all"]);
           break;
         }
         case "1": {
-          this.current = toRef(["singal"]);
+          this.current = ref(["singal"]);
           break;
         }
       }
     },
   },
-  data() {
+  setup() {
+    let current = ref(["all"]);
     return {
-      current: toRef(["all"]),
+      current,
     };
   },
 };
