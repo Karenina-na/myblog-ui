@@ -1,24 +1,26 @@
 <template>
-  <div class="box Select">
-    <div><ManageUpVue @pushFlag="ChangeFlag" :flag="flag"></ManageUpVue></div>
-    <div v-if="this.flag === '0'">
-      <div v-for="article in articles" :key="article">
-        <ArticleBody :article="article" class="article"></ArticleBody>
-        <RightButton
-          :id="article.id"
-          class="button"
-          @pushDelete="Delete"
-          @pushUpdate="Update"
-        ></RightButton>
+  <perfect-scrollbar>
+    <div class="box Select">
+      <div><ManageUpVue @pushFlag="ChangeFlag" :flag="flag"></ManageUpVue></div>
+      <div v-if="this.flag === '0'">
+        <div v-for="article in articles" :key="article">
+          <ArticleBody :article="article" class="article"></ArticleBody>
+          <RightButton
+            :id="article.id"
+            class="button"
+            @pushDelete="Delete"
+            @pushUpdate="Update"
+          ></RightButton>
+        </div>
+      </div>
+      <div v-if="this.flag === '1'">
+        <!--文章修改界面-->
+        <div class="box Select">
+          <ArticleUpdateView :articleId="articleId"></ArticleUpdateView>
+        </div>
       </div>
     </div>
-    <div v-if="this.flag === '1'">
-      <!--文章修改界面-->
-      <div class="box Select">
-        <ArticleUpdateView></ArticleUpdateView>
-      </div>
-    </div>
-  </div>
+  </perfect-scrollbar>
 </template>
 <script>
 import ManageUpVue from "@/components/common/ManageUp.vue";
@@ -42,7 +44,7 @@ export default {
     },
     Update(id) {
       this.flag = "1";
-      console.log(id);
+      this.articleId = id;
     },
   },
   data() {
@@ -58,11 +60,23 @@ export default {
           tags: ["标签"],
         },
       ],
+      articleId: "",
     };
   },
 };
 </script>
 <style scoped>
+/*滚动条样式*/
+.ps {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  height: 100%;
+}
+
 .Select {
   -webkit-user-select: none;
 
