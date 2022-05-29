@@ -1,7 +1,9 @@
 <template>
   <perfect-scrollbar>
     <div class="box Select">
-      <div><ManageUpVue @pushFlag="ChangeFlag" :flag="flag"></ManageUpVue></div>
+      <div class="UpMu">
+        <ManageUpVue @pushFlag="ChangeFlag" :flag="flag"></ManageUpVue>
+      </div>
       <div v-if="this.flag === '0'">
         <div class="add">
           <a-button type="primary" @click="Add">新建</a-button>
@@ -49,7 +51,7 @@ import { DeleteArticle } from "@/network/Manage.js";
 export default {
   name: "ManagerView",
   components: { ManageUpVue, ArticleBody, RightButton, ArticleUpdateView },
-  mounted() {
+  async mounted() {
     this.GetArticlesByPage(1);
     let check = this.$store.getters.getFlag;
     if (check !== 20042) {
@@ -140,6 +142,10 @@ export default {
 };
 </script>
 <style scoped>
+@import "@/assets/css/ManagerView/UpMu.css";
+@import "@/assets/css/ManagerView/RightButton.css";
+@import "@/assets/css/ManagerView/ArticleCatalugue.css";
+
 /*滚动条样式*/
 .ps {
   position: absolute;
@@ -149,6 +155,13 @@ export default {
   right: 0;
   margin: auto;
   height: 100%;
+}
+
+/*顶部选择栏*/
+.UpMu {
+  -webkit-animation: flip-in-hor-top 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94)
+    both;
+  animation: flip-in-hor-top 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 }
 
 .Select {
@@ -179,6 +192,10 @@ export default {
   padding: 10px;
   border-radius: 10px;
   border: 1px rgba(0, 0, 0, 0.281) solid;
+
+  -webkit-animation: rotate-in-2-cw 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)
+    both;
+  animation: rotate-in-2-cw 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 }
 
 /*分页*/
@@ -199,6 +216,10 @@ export default {
   float: right;
   border-radius: 10px;
   border: 1px rgba(0, 0, 0, 0.281) solid;
+
+  -webkit-animation: roll-in-blurred-right 0.65s cubic-bezier(0.23, 1, 0.32, 1)
+    both;
+  animation: roll-in-blurred-right 0.65s cubic-bezier(0.23, 1, 0.32, 1) both;
 }
 
 /*新增*/
