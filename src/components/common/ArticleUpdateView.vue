@@ -1,10 +1,39 @@
 <template>
   <div class="box">
     <div class="head">
-      <div class="title">{{ article.title }}</div>
+      <div class="title">
+        <a-input
+          v-model:value="article.title"
+          placeholder="标题"
+          style="width: 600px"
+        >
+          <template #prefix>
+            <home-outlined />
+          </template>
+        </a-input>
+      </div>
       <div class="introduce">
-        <span class="name">{{ article.author }}</span>
-        <span class="date">{{ article.date }}</span>
+        <span class="name">
+          <a-input
+            v-model:value="article.author"
+            placeholder="作者"
+            style="width: 200px"
+          >
+            <template #prefix>
+              <user-outlined type="user" />
+            </template> </a-input
+        ></span>
+        <span class="date">
+          <a-input
+            v-model:value="article.date"
+            placeholder="日期"
+            style="width: 200px"
+          >
+            <template #prefix>
+              <history-outlined />
+            </template>
+          </a-input>
+        </span>
       </div>
       <div>
         <span class="tags">
@@ -20,74 +49,156 @@
       <div style="border: 1px solid #ccc">
         <Toolbar
           style="border-bottom: 1px solid #ccc"
-          :editor="editorRef"
+          :editor="editor"
           :defaultConfig="toolbarConfig"
           :mode="mode"
         />
         <Editor
-          style="height: 750px; overflow-y: hidden"
-          v-model="valueHtml"
+          style="height: 750px; overflow-y: hidden; cursor: text"
+          v-model="article.messages"
           :defaultConfig="editorConfig"
           :mode="mode"
-          @onCreated="handleCreated"
+          @onCreated="onCreated"
         />
       </div>
+    </div>
+    <div class="button">
+      <a-button
+        type="primary"
+        shape="circle"
+        size="large"
+        width="300px"
+        @click="commit()"
+      >
+        <template #icon>
+          <cloud-upload-outlined />
+        </template>
+      </a-button>
     </div>
   </div>
 </template>
 <script>
-import { onBeforeUnmount, ref, shallowRef, onMounted } from "vue";
+import { toRaw } from "@vue/reactivity";
 import { Editor, Toolbar } from "@wangeditor/editor-for-vue";
+import {
+  CloudUploadOutlined,
+  UserOutlined,
+  HistoryOutlined,
+  HomeOutlined,
+} from "@ant-design/icons-vue";
+import { SelectArticleById } from "@/network/Select.js";
+import { UpdateArticle, AddArticle } from "@/network/Manage.js";
+import { message } from "ant-design-vue";
 
 export default {
+  components: {
+    Editor,
+    Toolbar,
+    CloudUploadOutlined,
+    UserOutlined,
+    HistoryOutlined,
+    HomeOutlined,
+  },
   name: "ArticleUpdateView",
-  components: { Editor, Toolbar },
-  methods: {},
-  mounted() {},
+  methods: {
+    onCreated(editor) {
+      this.editor = Object.seal(editor); // 一定要用 Object.seal() ，否则会报错
+    },
+    commit() {
+      if (this.flag === "update") {
+        //改
+        let article = toRaw(this.article);
+        let arr = article.tags.split(/\s+/);
+        article.tags = arr;
+        UpdateArticle(article).then(
+          (res) => {
+            if (res.code === 20031) {
+              message.success("修改成功");
+            } else {
+              this.article.tags = this.article.tags.join(" ");
+              message.error("修改失败，错误码 " + res.code + res.msg);
+            }
+          },
+          (err) => {
+            this.article.tags = this.article.tags.join(" ");
+            message.error("修改失败");
+            this.ERROR(err);
+          }
+        );
+      } else {
+        //增
+        let article = toRaw(this.article);
+        let arr = article.tags.split(/\s+/);
+        article.tags = arr;
+        AddArticle(article).then(
+          (res) => {
+            if (res.code === 20011) {
+              message.success("增加成功");
+            } else {
+              this.article.tags = this.article.tags.join(" ");
+              message.error("添加失败 " + res.code + res.msg);
+            }
+          },
+          (err) => {
+            this.article.tags = this.article.tags.join(" ");
+            message.error("增加失败");
+            this.ERROR(err);
+          }
+        );
+      }
+    },
+    //文章查找
+    GetArticlesById() {
+      SelectArticleById(this.articleId).then(
+        (res) => {
+          if (res.code === 20042) {
+            this.article = res.data;
+            this.article.tags = this.article.tags.join(" ");
+          } else {
+            this.ERROR(res);
+          }
+        },
+        (err) => {
+          this.ERROR(err);
+        }
+      );
+    },
+    //错误
+    ERROR(res) {
+      console.log(res);
+    },
+  },
+  mounted() {
+    if (this.articleId !== null) {
+      this.flag = "update";
+      this.GetArticlesById();
+    } else {
+      this.flag = "add";
+    }
+  },
+  beforeUnmount() {
+    //编辑器销毁
+    const editor = this.editor;
+    if (editor == null) return;
+    editor.destroy();
+  },
   props: ["articleId"],
   data() {
-    return {};
-  },
-  setup(props) {
-    var article = {};
-    const editorRef = shallowRef();
-    // 内容 HTML
-    const valueHtml = ref(article.messages);
-    onMounted(() => {
-      setTimeout(() => {
-        article = {
-          id: "1",
-          title: "标题",
-          author: "作者",
-          date: "时间",
-          messages: "文章主体",
-          tags: "标签1 标签2 标签3",
-        };
-        valueHtml.value = "<p>模拟 Ajax 异步设置内容</p>";
-        console.log(props.articleId);
-      }, 1500);
-    });
-    const toolbarConfig = {};
-    const editorConfig = { placeholder: "请输入..." };
-    // 组件销毁
-    onBeforeUnmount(() => {
-      const editor = editorRef.value.messages;
-      if (editor == null) return;
-      editor.destroy();
-    });
-
-    const handleCreated = (editor) => {
-      editorRef.value = editor; // 记录 editor 实例，重要！
-    };
-
     return {
-      article,
-      editorRef,
-      valueHtml,
-      mode: "default", // 或 'simple'
-      toolbarConfig,
-      editorConfig,
-      handleCreated,
+      article: {
+        // id: "1",
+        // title: "标题",
+        // author: "作者",
+        // date: "时间",
+        // messages: "<p>文章主体</p>",
+        // tags: "标签一 标签二",
+      },
+      flag: "",
+
+      editor: null,
+      toolbarConfig: {},
+      editorConfig: { placeholder: "请输入内容..." },
+      mode: "default", // or 'simple'
     };
   },
 };
@@ -126,7 +237,6 @@ export default {
   white-space: normal;
   word-wrap: break-word;
   padding-bottom: 20px;
-  padding-left: 10px;
 }
 
 .introduce {
@@ -158,7 +268,14 @@ export default {
 .body {
   padding-left: 50px;
   padding-right: 50px;
-  padding-bottom: 30px;
-  height: 870px;
+  height: 850px;
+}
+
+/*按钮*/
+.button {
+  padding-left: 760px;
+  padding-bottom: 15px;
+  margin-bottom: 10px;
+  width: 100%;
 }
 </style>

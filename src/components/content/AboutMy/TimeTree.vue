@@ -8,6 +8,12 @@
     </a-timeline-item> -->
     <a-timeline-item class="section">
       <template #dot>
+        <xxx></xxx>
+      </template>
+      前端测试完成 2022-6-3
+    </a-timeline-item>
+    <a-timeline-item class="section">
+      <template #dot>
         <bank-outlined style="font-size: 20px" />
       </template>
       vue-cli前端重构，优化网页性能 2022-5-16

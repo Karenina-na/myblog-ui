@@ -69,6 +69,9 @@ export default {
   padding-right: 40px;
   margin-left: 30px;
 }
+.tags span {
+  padding-right: 10px;
+}
 
 .date {
   float: right;
