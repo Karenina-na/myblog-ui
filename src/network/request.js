@@ -9,7 +9,10 @@ const service = axios.create({
 //拦截器
 service.interceptors.request.use(config => {
   config.headers = {
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
+    //token
+    'Req': '1011011011011',
+    'Man': '10101101111000'
   }
 
   return config

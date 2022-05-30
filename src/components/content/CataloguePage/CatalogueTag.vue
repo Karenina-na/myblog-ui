@@ -1,36 +1,34 @@
 <template>
   <div class="box">
-    <div class='head'>
-      <calendar-outlined id='icon' />
-      <span class='title'>分类</span>
+    <div class="head">
+      <calendar-outlined id="icon" />
+      <span class="title">分类</span>
     </div>
-    <div v-for="tag in tags"
-         :key="tag">
-      <div class='tag'
-           @click="selectArticlesByType(tag)">{{tag}}</div>
+    <div v-for="tag in tags" :key="tag">
+      <div class="tag" @click="selectArticlesByType(tag)">{{ tag }}</div>
     </div>
   </div>
 </template>
 
 <script>
-import { CalendarOutlined } from '@ant-design/icons-vue';
+import { CalendarOutlined } from "@ant-design/icons-vue";
 
 export default {
   name: "CatalogueTag",
   components: {
-    CalendarOutlined
+    CalendarOutlined,
   },
-  data () {
+  data() {
     return {
-      tags: ['java', 'python', 'c与c++', '数据库', '前端', '后端'],
-    }
+      tags: ["java", "python", "c与c++", "数据库", "前端", "后端"],
+    };
   },
   methods: {
-    selectArticlesByType (type) {
-      this.$emit('PushType', '1', type)
-    }
-  }
-}
+    selectArticlesByType(type) {
+      this.$emit("PushType", "1", type);
+    },
+  },
+};
 </script>
 
 <style scoped>

@@ -1,46 +1,45 @@
 <template>
-  <div class='box'>
-    <div class='title'>
-      {{article.title}}
+  <div class="box">
+    <div class="title">
+      {{ article.title }}
     </div>
-    <div class='message'>
-      <span class='author'
-            @click="SelectMy">{{article.author+" ·"}}</span>
-      <span class='date'>{{article.date+" ·"}}</span>
-      <span style="margin-right:3px;color: rgba(255, 255, 255, 0.564);">
+    <div class="message">
+      <span class="author" @click="SelectMy">{{ article.author + " ·" }}</span>
+      <span class="date">{{ article.date + " ·" }}</span>
+      <span style="margin-right: 3px; color: rgba(255, 255, 255, 0.564)">
         <tag-outlined class="icon" />分类：
       </span>
-      <span v-for="tag in article.tags"
-            :key="tag"
-            class='tag'
-            @click="SelectTag(tag)">{{tag}}</span>
+      <span
+        v-for="tag in article.tags"
+        :key="tag"
+        class="tag"
+        @click="SelectTag(tag)"
+        >{{ tag }}</span
+      >
     </div>
-    <div class='body'
-         v-html="article.messages"></div>
+    <div class="body" v-html="article.messages"></div>
   </div>
 </template>
 
 <script>
-import { TagOutlined } from '@ant-design/icons-vue'
+import { TagOutlined } from "@ant-design/icons-vue";
 
 export default {
   name: "ArticleBody",
   methods: {
-    SelectTag (tag) {
-      this.$emit('PushTag', tag);
+    SelectTag(tag) {
+      this.$emit("PushTag", tag);
     },
-    SelectMy () {
-      console.log('my')
-    }
+    SelectMy() {
+      this.$router.push({ path: "/AboutMy" });
+    },
   },
   components: { TagOutlined },
   props: ["article"],
-  data () {
-    return {
-
-    }
-  }
-}
+  data() {
+    return {};
+  },
+};
 </script>
 
 <style scoped>
@@ -72,6 +71,7 @@ export default {
 .author {
   color: rgba(255, 255, 255, 0.764);
   padding-right: 10px;
+  font-size: 18px;
 }
 .author:hover {
   color: aquamarine;
