@@ -1,16 +1,22 @@
 <template>
   <a-timeline mode="alternate">
-    <!-- <a-timeline-item class="section">
+    <!-- <a-timeline-item class="section" //color="颜色">
       <template #dot>
-        <xxx></xxx>
+        //<图标 style="font-size: 20px" />
       </template>
-      xxx
+      文字
     </a-timeline-item> -->
-    <a-timeline-item class="section">
+    <a-timeline-item class="section" color="green">
       <template #dot>
-        <xxx></xxx>
+        <check-outlined style="font-size: 20px" />
       </template>
       前端测试完成 2022-6-3
+    </a-timeline-item>
+    <a-timeline-item class="section">
+      <template #dot>
+        <edit-outlined style="font-size: 20px" />
+      </template>
+      更改数据加密算法 2022-6-1
     </a-timeline-item>
     <a-timeline-item class="section">
       <template #dot>
@@ -42,6 +48,8 @@ import {
   FundOutlined,
   ApartmentOutlined,
   BankOutlined,
+  CheckOutlined,
+  EditOutlined,
 } from "@ant-design/icons-vue";
 
 export default {
@@ -50,6 +58,8 @@ export default {
     FundOutlined,
     ApartmentOutlined,
     BankOutlined,
+    CheckOutlined,
+    EditOutlined,
   },
   name: "TimeTree",
 };
