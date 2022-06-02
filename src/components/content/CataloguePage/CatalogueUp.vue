@@ -1,22 +1,23 @@
 <template>
   <div class="box">
-    <span class='title'
-          @click="Flush">Augenstern</span>
+    <span class="title" @click="Flush">{{ AboutMe.author }}</span>
     <div @click="jump">
       <up-circle-outlined class="css" />
     </div>
-    <span id='tags'>
-      <span id='tags'>
-        <span v-for="(tag,item) in tags"
-              class='tag'
-              @click="Select(item)"
-              :key="tag">
-          <span class='tagBox'>
-            <bank-filled v-if="item===0" />
-            <calendar-filled v-if="item===1" />
-            <crown-filled v-if="item===2" />
-            <cloud-filled v-if="item===3" />
-            {{tag}}
+    <span id="tags">
+      <span id="tags">
+        <span
+          v-for="(tag, item) in tags"
+          class="tag"
+          @click="Select(item)"
+          :key="tag"
+        >
+          <span class="tagBox">
+            <bank-filled v-if="item === 0" />
+            <calendar-filled v-if="item === 1" />
+            <crown-filled v-if="item === 2" />
+            <cloud-filled v-if="item === 3" />
+            {{ tag }}
           </span>
         </span>
       </span>
@@ -25,8 +26,13 @@
 </template>
 
 <script>
-import { UpCircleOutlined } from '@ant-design/icons-vue';
-import { BankFilled, CalendarFilled, CrownFilled, CloudFilled } from '@ant-design/icons-vue'
+import { UpCircleOutlined } from "@ant-design/icons-vue";
+import {
+  BankFilled,
+  CalendarFilled,
+  CrownFilled,
+  CloudFilled,
+} from "@ant-design/icons-vue";
 
 export default {
   name: "CatalogueUp",
@@ -35,33 +41,46 @@ export default {
     BankFilled,
     CalendarFilled,
     CrownFilled,
-    CloudFilled
+    CloudFilled,
   },
   methods: {
-    jump () {
-      this.$router.push({ path: '/' })
+    jump() {
+      this.$router.push({ path: "/" });
     },
-    Select (value) {
+    Select(value) {
       switch (value) {
-        case 0: { this.$router.push({ path: '/' }); break; }
-        case 1: { console.log('分类'); break; }
-        case 2: { console.log('dunrui'); break; }
-        case 3: { this.$router.push({path: '/AboutMy' }); break; }
+        case 0: {
+          this.$router.push({ path: "/" });
+          break;
+        }
+        case 1: {
+          console.log("分类");
+          break;
+        }
+        case 2: {
+          console.log("dunrui");
+          break;
+        }
+        case 3: {
+          this.$router.push({ path: "/AboutMy" });
+          break;
+        }
       }
     },
-    Flush () {
-      this.$store.dispatch('saveType', '')
-      this.$store.dispatch('saveTitle', '')
-      this.$store.dispatch('saveTape', 1)
-      this.$router.go(0)
-    }
+    Flush() {
+      this.$store.dispatch("saveType", "");
+      this.$store.dispatch("saveTitle", "");
+      this.$store.dispatch("saveTape", 1);
+      this.$router.go(0);
+    },
   },
-  data () {
+  props: ["AboutMe"],
+  data() {
     return {
-      tags: ['首页', '分类', 'DUNRUI妙妙屋', '关于']
-    }
-  }
-}
+      tags: ["首页", "分类", "DUNRUI妙妙屋", "关于"],
+    };
+  },
+};
 </script>
 
 <style scoped>

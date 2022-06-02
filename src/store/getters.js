@@ -19,3 +19,15 @@ export const getPage = (state) => {
 export const getFlag = (state) => {
   return state.Flag;
 }
+
+export const getIntroduce = (state) => {
+  return state.Introduce;
+}
+
+export const getAuthor = (state) => {
+  return state.Author;
+}
+
+export const getNotice = (state) => {
+  return state.Notice;
+}

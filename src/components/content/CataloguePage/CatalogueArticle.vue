@@ -2,28 +2,33 @@
   <div class="box">
     <div class="left">
       <div id="head">
-        <span class="title"
-              @click="selectArticleById(article.id)">{{article.title}}</span>
+        <span class="title" @click="selectArticleById(article.id)">{{
+          article.title
+        }}</span>
         <span class="tag">
           <delivered-procedure-outlined class="icon" />
-          <span v-for="tag in article.tags"
-                :key="tag">{{" "+tag+" "}}</span>
+          <span v-for="tag in article.tags" :key="tag">{{
+            " " + tag + " "
+          }}</span>
         </span>
       </div>
-      <div id="body"
-           v-text="article.messages"></div>
+      <div id="body" v-text="article.messages"></div>
       <div id="foot">
         <customer-service-outlined class="icon" />
-        <span class="message">{{article.author}}</span>
+        <span class="message">{{ article.author }}</span>
         <tag-outlined class="icon" />
-        <span class="message">{{article.date}}</span>
+        <span class="message">{{ article.date }}</span>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { DeliveredProcedureOutlined, CustomerServiceOutlined, TagOutlined } from '@ant-design/icons-vue';
+import {
+  DeliveredProcedureOutlined,
+  CustomerServiceOutlined,
+  TagOutlined,
+} from "@ant-design/icons-vue";
 
 export default {
   name: "CatalogueArticle",
@@ -31,16 +36,16 @@ export default {
   components: {
     DeliveredProcedureOutlined,
     CustomerServiceOutlined,
-    TagOutlined
+    TagOutlined,
   },
   methods: {
-    selectArticleById (id) {
+    selectArticleById(id) {
       // sessionStorage.setItem("id", id);
-      this.$store.dispatch('saveArticleId', id);
-      this.$router.push({ path: '/Article' })
-    }
-  }
-}
+      this.$store.dispatch("saveArticleId", id);
+      this.$router.push({ path: "/Article" });
+    },
+  },
+};
 </script>
 
 <style scoped>
@@ -91,15 +96,18 @@ export default {
 /*标签和图标*/
 .tag,
 .icon {
-  font-size: 16px;
   color: rgb(0 0 0 / 35%);
 }
 .icon {
+  font-size: 16px;
   margin-right: 10px;
 
   transition-property: -webkit-transform transform;
   transition-duration: 0.3s;
   transition-timing-function: ease;
+}
+.tag {
+  font-size: 14px;
 }
 .tag.icon:hover,
 .tag:hover .icon {

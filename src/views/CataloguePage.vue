@@ -2,12 +2,16 @@
   <perfect-scrollbar>
     <ParticleVue> </ParticleVue>
     <div class="catalogue Select">
-      <CatalogueUp id="UpButton"></CatalogueUp>
+      <CatalogueUp id="UpButton" :AboutMe="AboutMe"></CatalogueUp>
       <div class="body">
         <div class="right">
           <SearchBar id="search" @PushTitle="GetArticlesByTitle"></SearchBar>
-          <CatalogueMy id="My" @PushType="GetArticlesByType"></CatalogueMy>
-          <CatalogueNotice id="notice"></CatalogueNotice>
+          <CatalogueMy
+            id="My"
+            @PushType="GetArticlesByType"
+            :AboutMe="AboutMe"
+          ></CatalogueMy>
+          <CatalogueNotice id="notice" :AboutMe="AboutMe"></CatalogueNotice>
           <CatalogueTag id="tag" @PushType="GetArticlesByType"></CatalogueTag>
           <div class="bottom"></div>
         </div>
@@ -54,6 +58,7 @@ import {
   SelectArticles,
   SelectArticlesByType,
   SelectArticleByTitle,
+  SelectAboutMe,
 } from "@/network/Select.js";
 
 export default {
@@ -82,6 +87,8 @@ export default {
     } else if (title === "") {
       this.GetArticlesByType(page, type);
     }
+
+    this.GetAboutMe();
   },
   methods: {
     //分页查找
@@ -150,6 +157,36 @@ export default {
         }
       );
     },
+    //查找必要数据
+    GetAboutMe() {
+      let author = this.$store.getters.getAuthor;
+      let introduce = this.$store.getters.getIntroduce;
+      let notice = this.$store.getters.getNotice;
+
+      if (author !== "" && introduce !== "" && notice !== "") {
+        this.AboutMe = {
+          author,
+          introduce,
+          notice,
+        };
+      } else {
+        SelectAboutMe().then(
+          (res) => {
+            if (res.code === 20042) {
+              this.$store.dispatch("saveIntroduce", res.data.introduce);
+              this.$store.dispatch("saveNotice", res.data.notice);
+              this.$store.dispatch("saveAuthor", res.data.author);
+              this.AboutMe = res.data;
+            } else {
+              this.ERROR(res);
+            }
+          },
+          (err) => {
+            this.ERROR(err);
+          }
+        );
+      }
+    },
     //抛出异常
     ERROR(Message) {
       console.log(Message);
@@ -189,6 +226,11 @@ export default {
         //   tags: ['标签']
         // }
       ],
+      AboutMe: {
+        // author: "作者",
+        // introduce: "介绍",
+        // notice: "公告",
+      },
       title: "",
     };
   },

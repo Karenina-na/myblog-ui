@@ -1,7 +1,7 @@
 import Service from '@/network/request.js'
 
 //页码查找
-export function SelectArticles (Page) {
+export function SelectArticles(Page) {
   const config = {
     method: 'get',
     url: '/articles/' + Page
@@ -10,7 +10,7 @@ export function SelectArticles (Page) {
 }
 
 //页码类型查找
-export function SelectArticlesByType (Page, Type) {
+export function SelectArticlesByType(Page, Type) {
   const config = {
     method: 'post',
     url: '/articles/',
@@ -20,7 +20,7 @@ export function SelectArticlesByType (Page, Type) {
 }
 
 //页码标题查找
-export function SelectArticleByTitle (Page, Title) {
+export function SelectArticleByTitle(Page, Title) {
   const config = {
     method: 'get',
     url: '/articles/' + Title + "/" + Page
@@ -29,10 +29,19 @@ export function SelectArticleByTitle (Page, Title) {
 }
 
 //id查找
-export function SelectArticleById (id) {
+export function SelectArticleById(id) {
   const config = {
     method: 'get',
     url: '/article/' + id
+  }
+  return Service(config)
+}
+
+//必要数据查找
+export function SelectAboutMe() {
+  const config = {
+    method: 'get',
+    url: '/about'
   }
   return Service(config)
 }

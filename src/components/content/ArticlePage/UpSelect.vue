@@ -7,7 +7,7 @@
         @click="jump"
       />
     </span>
-    <span class="title" @click="this.$router.go(0)">Augenstern</span>
+    <span class="title" @click="this.$router.go(0)">{{ AboutMe.author }}</span>
     <span id="tags">
       <span
         v-for="(tag, item) in tags"
@@ -45,6 +45,7 @@ export default {
     CrownFilled,
     CloudFilled,
   },
+  props: ["AboutMe"],
   data() {
     return {
       tags: ["首页", "分类", "DUNRUI妙妙屋", "关于"],

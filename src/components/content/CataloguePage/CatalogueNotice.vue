@@ -4,19 +4,20 @@
       <message-filled id="icon" />
       <span id="title">公告</span>
     </div>
-    <div id="text">2022-5-8 | 重构前端架构</div>
+    <div id="text">{{ AboutMe.notice }}</div>
   </div>
 </template>
 
 <script>
-import { MessageFilled } from '@ant-design/icons-vue';
+import { MessageFilled } from "@ant-design/icons-vue";
 
 export default {
   name: "CatalogueNotice",
   components: {
-    MessageFilled
-  }
-}
+    MessageFilled,
+  },
+  props: ["AboutMe"],
+};
 </script>
 
 <style scoped>

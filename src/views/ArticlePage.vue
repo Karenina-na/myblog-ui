@@ -1,7 +1,7 @@
 <template>
   <perfect-scrollbar>
     <VantaVueGlobeBlack></VantaVueGlobeBlack>
-    <UpSelect id="UpSelect"></UpSelect>
+    <UpSelect id="UpSelect" :AboutMe="AboutMe"></UpSelect>
     <div class="article">
       <div>
         <ArticleBody
@@ -24,7 +24,7 @@ import VantaVueGlobeBlack from "@/components/common/VantaVueGlobeBlack.vue";
 import UpSelect from "@/components/content/ArticlePage/UpSelect.vue";
 import ArticleBody from "@/components/content/ArticlePage/ArticleBody.vue";
 import CriminalRecord from "@/components/content/CriminalRecord.vue";
-import { SelectArticleById } from "@/network/Select.js";
+import { SelectArticleById, SelectAboutMe } from "@/network/Select.js";
 
 export default {
   name: "ArticlePage",
@@ -36,6 +36,8 @@ export default {
   },
   mounted() {
     this.GetArticlesById();
+
+    this.GetAboutMe();
   },
   methods: {
     //文章查找
@@ -54,6 +56,36 @@ export default {
           this.ERROR(err);
         }
       );
+    },
+    //查找必要数据
+    GetAboutMe() {
+      let author = this.$store.getters.getAuthor;
+      let introduce = this.$store.getters.getIntroduce;
+      let notice = this.$store.getters.getNotice;
+
+      if (author !== "" && introduce !== "" && notice !== "") {
+        this.AboutMe = {
+          author,
+          introduce,
+          notice,
+        };
+      } else {
+        SelectAboutMe().then(
+          (res) => {
+            if (res.code === 20042) {
+              this.$store.dispatch("saveIntroduce", res.data.introduce);
+              this.$store.dispatch("saveNotice", res.data.notice);
+              this.$store.dispatch("saveAuthor", res.data.author);
+              this.AboutMe = res.data;
+            } else {
+              this.ERROR(res);
+            }
+          },
+          (err) => {
+            this.ERROR(err);
+          }
+        );
+      }
     },
     //标签跳转
     GetArticlesByType(type) {
@@ -76,6 +108,11 @@ export default {
         // date: "时间",
         // body: "文章主体",
         // tags: ['标签']
+      },
+      AboutMe: {
+        // author: "作者",
+        // introduce: "介绍",
+        // notice: "公告",
       },
     };
   },

@@ -20,3 +20,14 @@ export const saveFlag = ({ commit }, flag) => {
   commit('saveFlag', flag);
 }
 
+export const saveIntroduce = ({ commit }, introduce) => {
+  commit('saveIntroduce', introduce)
+}
+
+export const saveNotice = ({ commit }, notice) => {
+  commit('saveNotice', notice)
+}
+
+export const saveAuthor = ({ commit }, author) => {
+  commit('saveAuthor', author)
+}

@@ -20,3 +20,14 @@ export const saveFlag = (state, flag) => {
   state.Flag = flag
 }
 
+export const saveNotice = (state, notice) => {
+  state.Notice = notice
+}
+
+export const saveIntroduce = (state, introduce) => {
+  state.Introduce = introduce
+}
+
+export const saveAuthor = (state, author) => {
+  state.Author = author
+}

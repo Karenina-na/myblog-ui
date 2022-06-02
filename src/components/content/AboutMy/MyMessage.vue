@@ -1,19 +1,24 @@
 <template>
   <div class="box">
     <div id="message">
-      博主目前大一，坐标西安西北工业大学，网络空间安全专业。欢迎各位与我技术交流
+      {{ AboutMe.introduce }}
     </div>
     <div class="title">我的联系方式</div>
-    <div class="click"><span class="call"><qq-outlined class="icon"/></span>1539989223</div>
-    <div class="click"><span class="call"><wechat-outlined  class="icon"/></span>wzx_1539989223</div>
+    <div class="click">
+      <span class="call"><qq-outlined class="icon" /></span>1539989223
+    </div>
+    <div class="click">
+      <span class="call"><wechat-outlined class="icon" /></span>wzx_1539989223
+    </div>
   </div>
 </template>
 <script>
-import { QqOutlined,WechatOutlined } from "@ant-design/icons-vue";
+import { QqOutlined, WechatOutlined } from "@ant-design/icons-vue";
 
 export default {
   name: "MyMessage",
-  components: {QqOutlined,WechatOutlined}
+  components: { QqOutlined, WechatOutlined },
+  props: ["AboutMe"],
 };
 </script>
 <style scoped>
@@ -25,7 +30,7 @@ export default {
 #message {
   margin: 20px;
   padding-bottom: 20px;
-  font-size:15px;
+  font-size: 15px;
 }
 /*联系方式样式*/
 .title {
@@ -38,14 +43,14 @@ export default {
 .call {
   font-weight: 600;
 }
-.icon{
+.icon {
   margin-right: 5px;
 }
 /*联系方式交互样式 */
 .click {
   transition: transform 0.32s !important;
-  font-size:15px;
-  padding-top:2px;
+  font-size: 15px;
+  padding-top: 2px;
 }
 .click:hover {
   transform: scale(1.1);

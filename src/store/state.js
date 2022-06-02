@@ -5,5 +5,8 @@ export default {
   Title: "",
   ArticleId: "",
   Page: "",
-  Flag: ""
+  Flag: "",
+  Author: "",
+  Notice: "",
+  Introduce: "",
 }

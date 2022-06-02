@@ -1,35 +1,33 @@
 <template>
   <div class="box">
     <div>
-      <a-avatar :size="120"
-                id="img">
+      <a-avatar :size="120" id="img">
         <template #icon>
           <UserOutlined />
         </template>
       </a-avatar>
     </div>
     <div id="text">
-      <div class="name">Augenstern</div>
-      <div class="text">Augenstern的小屋</div>
+      <div class="name">{{ AboutMe.author }}</div>
+      <div class="text">{{ AboutMe.author }}的小屋</div>
       <div class="text">Sharing</div>
     </div>
-    <a-divider color="black"
-               id="line" />
+    <a-divider color="black" id="line" />
     <div>
-      <div class="check"
-           @click="SelectPageByType('笔记')"> <span>笔记</span>
+      <div class="check" @click="SelectPageByType('笔记')">
+        <span>笔记</span>
         <div>
           <file-outlined class="icon" />
         </div>
       </div>
-      <div class="check"
-           @click="SelectPageByType('日常')"> <span>日常</span>
+      <div class="check" @click="SelectPageByType('日常')">
+        <span>日常</span>
         <div>
           <coffee-outlined class="icon" />
         </div>
       </div>
-      <div class="check"
-           @click="SelectPageByType('技术')"> <span>技术</span>
+      <div class="check" @click="SelectPageByType('技术')">
+        <span>技术</span>
         <div>
           <laptop-outlined class="icon" />
         </div>
@@ -39,21 +37,27 @@
 </template>
 
 <script>
-import { UserOutlined, FileOutlined, CoffeeOutlined, LaptopOutlined } from '@ant-design/icons-vue';
+import {
+  UserOutlined,
+  FileOutlined,
+  CoffeeOutlined,
+  LaptopOutlined,
+} from "@ant-design/icons-vue";
 export default {
-  name: 'CatalogueMy',
+  name: "CatalogueMy",
   components: {
     UserOutlined,
     FileOutlined,
     CoffeeOutlined,
-    LaptopOutlined
+    LaptopOutlined,
   },
   methods: {
-    SelectPageByType (type) {
-      this.$emit('PushType', '1', type);
-    }
-  }
-}
+    SelectPageByType(type) {
+      this.$emit("PushType", "1", type);
+    },
+  },
+  props: ["AboutMe"],
+};
 </script>
 
 <style scoped>
