@@ -6,6 +6,12 @@
       </template>
       文字
     </a-timeline-item> -->
+    <a-timeline-item class="section" color="purple">
+      <template #dot>
+        <form-outlined style="font-size: 20px" />
+      </template>
+      springboot重构后端，优化项目架构 2022-6-7
+    </a-timeline-item>
     <a-timeline-item class="section" color="green">
       <template #dot>
         <check-outlined style="font-size: 20px" />
@@ -18,7 +24,7 @@
       </template>
       更改数据加密算法 2022-6-1
     </a-timeline-item>
-    <a-timeline-item class="section">
+    <a-timeline-item class="section" color="grep">
       <template #dot>
         <bank-outlined style="font-size: 20px" />
       </template>
@@ -50,6 +56,7 @@ import {
   BankOutlined,
   CheckOutlined,
   EditOutlined,
+  FormOutlined,
 } from "@ant-design/icons-vue";
 
 export default {
@@ -60,6 +67,7 @@ export default {
     BankOutlined,
     CheckOutlined,
     EditOutlined,
+    FormOutlined,
   },
   name: "TimeTree",
 };
