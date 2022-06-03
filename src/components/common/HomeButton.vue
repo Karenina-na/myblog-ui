@@ -1,32 +1,25 @@
 <template>
   <div class="Enter">
     <div class="border" @click="Enter">
-      <right-circle-outlined id="Enter"
-                              />
+      <right-circle-outlined id="Enter" />
     </div>
   </div>
 </template>
 
 <script>
-import { RightCircleOutlined } from '@ant-design/icons-vue';
+import { RightCircleOutlined } from "@ant-design/icons-vue";
 
 export default {
   name: "HomeButton",
   components: {
-    RightCircleOutlined
+    RightCircleOutlined,
   },
   methods: {
-    Enter () {
-      // sessionStorage.setItem("type", '');
-      // sessionStorage.setItem("title", '');
-      // sessionStorage.setItem("page", 1);
-      this.$store.dispatch('saveType', '');
-      this.$store.dispatch('saveTitle', '');
-      this.$store.dispatch('savePage', 1);
-      this.$router.push({ path: '/CataloguePage' })
-    }
-  }
-}
+    Enter() {
+      this.$router.push({ path: "/CataloguePage" });
+    },
+  },
+};
 </script>
 
 <style>

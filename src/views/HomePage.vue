@@ -5,27 +5,37 @@
     <HomeButton class="button"></HomeButton>
   </div>
   <CriminalRecord class="Select"></CriminalRecord>
-
 </template>
 
 <script>
-import VantaVueBirds from '@/components/common/VantaVueBirds.vue'
-import HomeButton from '@/components/common/HomeButton.vue'
-import CriminalRecord from '@/components/content/CriminalRecord.vue'
-import HomePageInformation from '@/components/content/HomePage/HomePageInformation.vue'
-
+import VantaVueBirds from "@/components/common/VantaVueBirds.vue";
+import HomeButton from "@/components/common/HomeButton.vue";
+import CriminalRecord from "@/components/content/CriminalRecord.vue";
+import HomePageInformation from "@/components/content/HomePage/HomePageInformation.vue";
 
 export default {
-  name: 'HomePage',
+  name: "HomePage",
   components: {
     VantaVueBirds,
     CriminalRecord,
     HomePageInformation,
-    HomeButton
+    HomeButton,
   },
-  methods: {
-  }
-}
+  methods: {},
+  mounted() {
+    // sessionStorage.setItem("type", '');
+    // sessionStorage.setItem("title", '');
+    // sessionStorage.setItem("page", 1);
+    //记录控制
+    this.$store.dispatch("saveIntroduce", "");
+    this.$store.dispatch("saveNotice", "");
+    this.$store.dispatch("saveAuthor", "");
+    this.$store.dispatch("saveType", "");
+    this.$store.dispatch("saveTitle", "");
+    this.$store.dispatch("saveArticleId", "");
+    this.$store.dispatch("savePage", 1);
+  },
+};
 </script>
 
 <style scoped>
