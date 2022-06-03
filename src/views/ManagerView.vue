@@ -79,12 +79,15 @@ import {
   SelectArticles,
   SelectAboutMe
 } from "@/network/Select.js";
-import { DeleteArticle } from "@/network/Manage.js";
+import {
+  DeleteArticle,
+  UpdateAboutMe
+} from "@/network/Manage.js";
 
 export default {
   name: "ManagerView",
   components: { ManageUpVue, ArticleBody, RightButton, ArticleUpdateView },
-  async mounted () {
+  mounted () {
     this.GetArticlesByPage(1);
     this.GetAboutMe();
     let check = this.$store.getters.getFlag;
@@ -183,8 +186,26 @@ export default {
     },
     //修改个人信息 
     UpdateMy () {
-      console.log(this.AboutMe);
-      this.Dialog = '0';
+      UpdateAboutMe(this.AboutMe).then((res) => {
+        if (res.code === 20031) {
+          this.$store.dispatch("saveIntroduce", "");
+          this.$store.dispatch("saveNotice", "");
+          this.$store.dispatch("saveAuthor", "");
+          this.GetAboutMe();
+          this.Dialog = '0';
+          message.success("更改成功");
+        }
+        else {
+          message.error("删除失败 " + res.code + res.msg);
+          this.ERROR(res);
+        }
+      }, (err) => {
+        this.ERROR(err);
+      });
+    },
+    //异常
+    ERROR (err) {
+      console.log(err)
     }
   },
   data () {
@@ -208,9 +229,9 @@ export default {
       articleId: "",
       Dialog: "0",
       AboutMe: {
-        author: "作者",
-        introduce: "介绍",
-        notice: "公告",
+        // author: "作者",
+        // introduce: "介绍",
+        // notice: "公告",
       },
     };
   },

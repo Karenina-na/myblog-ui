@@ -2,40 +2,40 @@
   <perfect-scrollbar>
     <ParticleVue> </ParticleVue>
     <div class="catalogue Select">
-      <CatalogueUp id="UpButton" :AboutMe="AboutMe"></CatalogueUp>
+      <CatalogueUp id="UpButton"
+                   :AboutMe="AboutMe"></CatalogueUp>
       <div class="body">
         <div class="right">
-          <SearchBar id="search" @PushTitle="GetArticlesByTitle"></SearchBar>
-          <CatalogueMy
-            id="My"
-            @PushType="GetArticlesByType"
-            :AboutMe="AboutMe"
-          ></CatalogueMy>
-          <CatalogueNotice id="notice" :AboutMe="AboutMe"></CatalogueNotice>
-          <CatalogueTag id="tag" @PushType="GetArticlesByType"></CatalogueTag>
+          <SearchBar id="search"
+                     @PushTitle="GetArticlesByTitle"></SearchBar>
+          <CatalogueMy id="My"
+                       @PushType="GetArticlesByType"
+                       :AboutMe="AboutMe"></CatalogueMy>
+          <CatalogueNotice id="notice"
+                           :AboutMe="AboutMe"></CatalogueNotice>
+          <CatalogueTag id="tag"
+                        @PushType="GetArticlesByType"></CatalogueTag>
           <div class="bottom"></div>
         </div>
         <div class="left">
-          <div v-for="article in articles" :key="article">
-            <CatalogueArticle
-              :article="article"
-              class="article"
-              id="articles"
-            ></CatalogueArticle>
+          <div v-for="article in articles"
+               :key="article">
+            <CatalogueArticle :article="article"
+                              class="article"
+                              id="articles"></CatalogueArticle>
           </div>
-          <div class="noneImg" v-if="articles.length === 0">
+          <div class="noneImg"
+               v-if="articles.length === 0">
             <a-empty :image="simpleImage" />
           </div>
           <div class="foot">
-            <a-pagination
-              size="small"
-              v-if="articles.length !== 0"
-              v-model:current="PageInfo.currentPage"
-              v-model:total="PageInfo.totalNumber"
-              v-model:pageSize="PageInfo.pageSize"
-              show-quick-jumper
-              @change="onChange"
-            />
+            <a-pagination size="small"
+                          v-if="articles.length !== 0"
+                          v-model:current="PageInfo.currentPage"
+                          v-model:total="PageInfo.totalNumber"
+                          v-model:pageSize="PageInfo.pageSize"
+                          show-quick-jumper
+                          @change="onChange" />
           </div>
           <div class="bottom"></div>
         </div>
@@ -72,7 +72,7 @@ export default {
     CatalogueTag,
     SearchBar,
   },
-  mounted() {
+  mounted () {
     // let type = sessionStorage.getItem("type");
     // let title = sessionStorage.getItem("title");
     // let page = sessionStorage.getItem("page");
@@ -92,7 +92,7 @@ export default {
   },
   methods: {
     //分页查找
-    GetArticlesByPage(page) {
+    GetArticlesByPage (page) {
       // sessionStorage.setItem("type", '');
       // sessionStorage.setItem("title", '');
       this.$store.dispatch("saveType", "");
@@ -114,7 +114,7 @@ export default {
       );
     },
     //类型查找
-    GetArticlesByType(page, tag) {
+    GetArticlesByType (page, tag) {
       // sessionStorage.setItem("type", tag);
       // sessionStorage.setItem("title", '');
       this.$store.dispatch("saveType", tag);
@@ -136,7 +136,7 @@ export default {
       );
     },
     //标题查找
-    GetArticlesByTitle(page, title) {
+    GetArticlesByTitle (page, title) {
       // sessionStorage.setItem("title", title);
       // sessionStorage.setItem("type", '');
       this.$store.dispatch("saveTitle", title);
@@ -158,7 +158,7 @@ export default {
       );
     },
     //查找必要数据
-    GetAboutMe() {
+    GetAboutMe () {
       let author = this.$store.getters.getAuthor;
       let introduce = this.$store.getters.getIntroduce;
       let notice = this.$store.getters.getNotice;
@@ -177,6 +177,7 @@ export default {
               this.$store.dispatch("saveNotice", res.data.notice);
               this.$store.dispatch("saveAuthor", res.data.author);
               this.AboutMe = res.data;
+
             } else {
               this.ERROR(res);
             }
@@ -188,11 +189,11 @@ export default {
       }
     },
     //抛出异常
-    ERROR(Message) {
+    ERROR (Message) {
       console.log(Message);
     },
     //分页
-    onChange() {
+    onChange () {
       // let type = sessionStorage.getItem("type");
       // let title = sessionStorage.getItem("title");
       let type = this.$store.getters.getType;
@@ -209,7 +210,7 @@ export default {
       }
     },
   },
-  data() {
+  data () {
     return {
       PageInfo: {
         totalNumber: 0,
