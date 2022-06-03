@@ -2,32 +2,62 @@
   <perfect-scrollbar>
     <div class="box Select">
       <div class="UpMu">
-        <ManageUpVue @pushFlag="ChangeFlag" :flag="flag"></ManageUpVue>
+        <ManageUpVue @pushFlag="ChangeFlag"
+                     :flag="flag"></ManageUpVue>
       </div>
       <div v-if="this.flag === '0'">
         <div class="add">
-          <a-button type="primary" @click="Add">新建</a-button>
+          <a-button type="primary"
+                    class="ADD"
+                    @click="Add">新建</a-button>
+          <a-button type="primary"
+                    @click="this.Dialog='1'"
+                    class="ADD">修改个人信息</a-button>
+          <!--对话框-->
+          <a-modal v-if="this.Dialog==='1'"
+                   :visible="true"
+                   title="个人信息">
+            <template #footer>
+              <a-button key="back"
+                        @click="this.Dialog='0'">Return</a-button>
+              <a-button key="submit"
+                        type="primary"
+                        @click="UpdateMy">Submit</a-button>
+            </template>
+            <a-input v-model:value="AboutMe.author"
+                     placeholder="作者"
+                     style="width: 200px"
+                     class="dialog-input">
+            </a-input>
+            <a-textarea v-model:value="AboutMe.notice"
+                        placeholder="公告"
+                        :auto-size="{ minRows: 1, maxRows: 10 }"
+                        class="dialog-input" />
+            <a-textarea v-model:value="AboutMe.introduce"
+                        placeholder="简介"
+                        :auto-size="{ minRows: 1, maxRows: 10 }"
+                        class="dialog-input" />
+          </a-modal>
         </div>
-        <div v-for="article in articles" :key="article">
-          <ArticleBody :article="article" class="article"></ArticleBody>
-          <RightButton
-            :id="article.id"
-            class="button"
-            @pushDelete="Delete"
-            @pushUpdate="Update"
-          ></RightButton>
+
+        <div v-for="article in articles"
+             :key="article">
+          <ArticleBody :article="article"
+                       class="article"></ArticleBody>
+          <RightButton :id="article.id"
+                       class="button"
+                       @pushDelete="Delete"
+                       @pushUpdate="Update"></RightButton>
         </div>
 
         <div class="foot">
-          <a-pagination
-            size="small"
-            v-if="articles.length !== 0"
-            v-model:current="PageInfo.currentPage"
-            v-model:total="PageInfo.totalNumber"
-            v-model:pageSize="PageInfo.pageSize"
-            show-quick-jumper
-            @change="ChangePage"
-          />
+          <a-pagination size="small"
+                        v-if="articles.length !== 0"
+                        v-model:current="PageInfo.currentPage"
+                        v-model:total="PageInfo.totalNumber"
+                        v-model:pageSize="PageInfo.pageSize"
+                        show-quick-jumper
+                        @change="ChangePage" />
         </div>
       </div>
       <div v-if="this.flag === '1'">
@@ -45,14 +75,18 @@ import ArticleBody from "@/components/content/ManagerView/ArticlesBody.vue";
 import RightButton from "@/components/content/ManagerView/RightButton.vue";
 import ArticleUpdateView from "@/components/common/ArticleUpdateView.vue";
 import { message } from "ant-design-vue";
-import { SelectArticles } from "@/network/Select.js";
+import {
+  SelectArticles,
+  SelectAboutMe
+} from "@/network/Select.js";
 import { DeleteArticle } from "@/network/Manage.js";
 
 export default {
   name: "ManagerView",
   components: { ManageUpVue, ArticleBody, RightButton, ArticleUpdateView },
-  async mounted() {
+  async mounted () {
     this.GetArticlesByPage(1);
+    this.GetAboutMe();
     let check = this.$store.getters.getFlag;
     if (check !== 20042) {
       this.$router.push("/rootManager");
@@ -60,12 +94,12 @@ export default {
   },
   methods: {
     //改变显示状态并重载数据
-    ChangeFlag(flag) {
+    ChangeFlag (flag) {
       this.flag = flag;
       this.GetArticlesByPage(this.PageInfo.currentPage);
     },
     //删除
-    Delete(id) {
+    Delete (id) {
       DeleteArticle(id).then(
         (res) => {
           if (res.code === 20021) {
@@ -82,11 +116,11 @@ export default {
       );
     },
     //改变页码
-    ChangePage() {
+    ChangePage () {
       this.GetArticlesByPage(this.PageInfo.currentPage);
     },
     //分页查询
-    GetArticlesByPage(page) {
+    GetArticlesByPage (page) {
       // sessionStorage.setItem("type", '');
       // sessionStorage.setItem("title", '');
       this.$store.dispatch("saveType", "");
@@ -107,18 +141,53 @@ export default {
         }
       );
     },
+    //查找必要数据
+    GetAboutMe () {
+      let author = this.$store.getters.getAuthor;
+      let introduce = this.$store.getters.getIntroduce;
+      let notice = this.$store.getters.getNotice;
+
+      if (author !== "" && introduce !== "" && notice !== "") {
+        this.AboutMe = {
+          author,
+          introduce,
+          notice,
+        };
+      } else {
+        SelectAboutMe().then(
+          (res) => {
+            if (res.code === 20042) {
+              this.$store.dispatch("saveIntroduce", res.data.introduce);
+              this.$store.dispatch("saveNotice", res.data.notice);
+              this.$store.dispatch("saveAuthor", res.data.author);
+              this.AboutMe = res.data;
+            } else {
+              this.ERROR(res);
+            }
+          },
+          (err) => {
+            this.ERROR(err);
+          }
+        );
+      }
+    },
     //点击修改按钮
-    Update(id) {
+    Update (id) {
       this.flag = "1";
       this.articleId = id;
     },
     //添加按钮
-    Add() {
+    Add () {
       this.flag = "1";
       this.articleId = null;
     },
+    //修改个人信息 
+    UpdateMy () {
+      console.log(this.AboutMe);
+      this.Dialog = '0';
+    }
   },
-  data() {
+  data () {
     return {
       flag: "0",
       PageInfo: {
@@ -128,15 +197,21 @@ export default {
       },
       articles: [
         {
-          id: "1",
-          title: "标题",
-          author: "作者",
-          date: "时间",
-          messages: "<p>文章主体</p>",
-          tags: ["标签"],
+          // id: "1",
+          // title: "标题",
+          // author: "作者",
+          // date: "时间",
+          // messages: "<p>文章主体</p>",
+          // tags: ["标签"],
         },
       ],
       articleId: "",
+      Dialog: "0",
+      AboutMe: {
+        author: "作者",
+        introduce: "介绍",
+        notice: "公告",
+      },
     };
   },
 };
@@ -225,6 +300,15 @@ export default {
 /*新增*/
 .add {
   padding-top: 20px;
-  padding-left: 800px;
+  padding-left: 630px;
+}
+.add .ADD {
+  margin-left: 30px;
+}
+
+/*对话框 */
+.dialog-input {
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 </style>
