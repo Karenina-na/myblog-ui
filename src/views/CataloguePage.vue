@@ -54,6 +54,8 @@ import CatalogueNotice from "@/components/content/CataloguePage/CatalogueNotice.
 import CatalogueTag from "@/components/content/CataloguePage/CatalogueTag";
 import SearchBar from "@/components/common/SearchBar.vue";
 
+import { Empty } from "ant-design-vue";
+
 import {
   SelectArticles,
   SelectArticlesByType,
@@ -232,6 +234,7 @@ export default {
         // notice: "公告",
       },
       title: "",
+      simpleImage: Empty.PRESENTED_IMAGE_SIMPLE,
     };
   },
 };

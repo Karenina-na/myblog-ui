@@ -1,7 +1,11 @@
 <template>
   <div class="box">
     <div>
-      <a-avatar :size="120" id="img">
+      <a-avatar
+        :size="120"
+        id="img"
+        src="https://q.qlogo.cn/g?b=qq&nk=1539989223&s=100"
+      >
         <template #icon>
           <UserOutlined />
         </template>
