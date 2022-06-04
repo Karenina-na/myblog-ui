@@ -123,16 +123,31 @@ export default {
 @import url("@/assets/css/ArticlePage/UpSelect.css");
 
 /*顶部框*/
-#UpSelect {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  margin: 0 auto;
-  z-index: 100;
+@media screen and (min-width: 500px) {
+  #UpSelect {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    margin: 0 auto;
+    z-index: 100;
 
-  -webkit-animation: flip-in-hor-top 1s cubic-bezier(0.25, 0.46, 0.45, 0.94)
-    both;
-  animation: flip-in-hor-top 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+    -webkit-animation: flip-in-hor-top 1s cubic-bezier(0.25, 0.46, 0.45, 0.94)
+      both;
+    animation: flip-in-hor-top 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  }
+}
+@media screen and (max-width: 500px) {
+  #UpSelect {
+    position: absolute;
+    top: 0;
+    width: 850px;
+    margin: 0 auto;
+    z-index: 100;
+
+    -webkit-animation: flip-in-hor-top 1s cubic-bezier(0.25, 0.46, 0.45, 0.94)
+      both;
+    animation: flip-in-hor-top 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  }
 }
 /*文章主体*/
 .article {
