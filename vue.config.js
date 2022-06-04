@@ -1,8 +1,7 @@
 const { defineConfig } = require('@vue/cli-service')
 
 module.exports = defineConfig({
-  // publicPath: "../../",
-  publicPath: "./",
+  publicPath: "/",
   transpileDependencies: true,
   outputDir: process.env.outputDir,     //读取目录下的.env.环境文件
 
