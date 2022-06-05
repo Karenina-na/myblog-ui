@@ -2,11 +2,9 @@
   <div class="box">
     <div class="head">
       <div class="title">
-        <a-input
-          v-model:value="article.title"
-          placeholder="标题"
-          style="width: 600px"
-        >
+        <a-input v-model:value="article.title"
+                 placeholder="标题"
+                 style="width: 600px">
           <template #prefix>
             <home-outlined />
           </template>
@@ -14,21 +12,18 @@
       </div>
       <div class="introduce">
         <span class="name">
-          <a-input
-            v-model:value="article.author"
-            placeholder="作者"
-            style="width: 200px"
-          >
+          <a-input v-model:value="article.author"
+                   placeholder="作者"
+                   style="width: 200px">
             <template #prefix>
               <user-outlined type="user" />
-            </template> </a-input
-        ></span>
+            </template>
+          </a-input>
+        </span>
         <span class="date">
-          <a-input
-            v-model:value="article.date"
-            placeholder="日期"
-            style="width: 200px"
-          >
+          <a-input v-model:value="article.date"
+                   placeholder="日期"
+                   style="width: 200px">
             <template #prefix>
               <history-outlined />
             </template>
@@ -37,39 +32,31 @@
       </div>
       <div>
         <span class="tags">
-          <a-input
-            v-model:value="article.tags"
-            placeholder="请输入标签值"
-            class="tags"
-          />
+          <a-input v-model:value="article.tags"
+                   placeholder="请输入标签值"
+                   class="tags" />
         </span>
       </div>
     </div>
     <div class="body">
       <div style="border: 1px solid #ccc">
-        <Toolbar
-          style="border-bottom: 1px solid #ccc"
-          :editor="editor"
-          :defaultConfig="toolbarConfig"
-          :mode="mode"
-        />
-        <Editor
-          style="height: 750px; overflow-y: hidden; cursor: text"
-          v-model="article.messages"
-          :defaultConfig="editorConfig"
-          :mode="mode"
-          @onCreated="onCreated"
-        />
+        <Toolbar style="border-bottom: 1px solid #ccc"
+                 :editor="editor"
+                 :defaultConfig="toolbarConfig"
+                 :mode="mode" />
+        <Editor style="height: 750px; overflow-y: hidden; cursor: text"
+                v-model="article.messages"
+                :defaultConfig="editorConfig"
+                :mode="mode"
+                @onCreated="onCreated" />
       </div>
     </div>
     <div class="button">
-      <a-button
-        type="primary"
-        shape="circle"
-        size="large"
-        width="300px"
-        @click="commit()"
-      >
+      <a-button type="primary"
+                shape="circle"
+                size="large"
+                width="300px"
+                @click="commit()">
         <template #icon>
           <cloud-upload-outlined />
         </template>
@@ -101,10 +88,10 @@ export default {
   },
   name: "ArticleUpdateView",
   methods: {
-    onCreated(editor) {
+    onCreated (editor) {
       this.editor = Object.seal(editor); // 一定要用 Object.seal() ，否则会报错
     },
-    commit() {
+    commit () {
       if (this.flag === "update") {
         //改
         let article = toRaw(this.article);
@@ -114,6 +101,7 @@ export default {
           (res) => {
             if (res.code === 20031) {
               message.success("修改成功");
+              this.GetArticlesById();
             } else {
               this.article.tags = this.article.tags.join(" ");
               message.error("修改失败，错误码 " + res.code + res.msg);
@@ -148,7 +136,7 @@ export default {
       }
     },
     //文章查找
-    GetArticlesById() {
+    GetArticlesById () {
       SelectArticleById(this.articleId).then(
         (res) => {
           if (res.code === 20042) {
@@ -164,11 +152,11 @@ export default {
       );
     },
     //错误
-    ERROR(res) {
+    ERROR (res) {
       console.log(res);
     },
   },
-  mounted() {
+  mounted () {
     if (this.articleId !== null) {
       this.flag = "update";
       this.GetArticlesById();
@@ -176,14 +164,14 @@ export default {
       this.flag = "add";
     }
   },
-  beforeUnmount() {
+  beforeUnmount () {
     //编辑器销毁
     const editor = this.editor;
     if (editor == null) return;
     editor.destroy();
   },
   props: ["articleId"],
-  data() {
+  data () {
     return {
       article: {
         // id: "1",
@@ -196,8 +184,12 @@ export default {
       flag: "",
 
       editor: null,
-      toolbarConfig: {},
-      editorConfig: { placeholder: "请输入内容..." },
+      toolbarConfig: {
+
+      },
+      editorConfig: {
+        placeholder: "请输入内容...",
+      },
       mode: "default", // or 'simple'
     };
   },

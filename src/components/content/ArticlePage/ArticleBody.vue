@@ -4,20 +4,19 @@
       {{ article.title }}
     </div>
     <div class="message">
-      <span class="author" @click="SelectMy">{{ article.author + " ·" }}</span>
+      <span class="author"
+            @click="SelectMy">{{ article.author + " ·" }}</span>
       <span class="date">{{ article.date + " ·" }}</span>
-      <span style="margin-right: 3px; color: rgba(255, 255, 255, 0.564)">
+      <span style="margin-right: 3px;">
         <tag-outlined class="icon" />分类：
       </span>
-      <span
-        v-for="tag in article.tags"
-        :key="tag"
-        class="tag"
-        @click="SelectTag(tag)"
-        >{{ tag }}</span
-      >
+      <span v-for="tag in article.tags"
+            :key="tag"
+            class="tag"
+            @click="SelectTag(tag)">{{ tag }}</span>
     </div>
-    <div class="body" v-html="article.messages"></div>
+    <div class="body"
+         v-html="article.messages"></div>
   </div>
 </template>
 
@@ -27,16 +26,16 @@ import { TagOutlined } from "@ant-design/icons-vue";
 export default {
   name: "ArticleBody",
   methods: {
-    SelectTag(tag) {
+    SelectTag (tag) {
       this.$emit("PushTag", tag);
     },
-    SelectMy() {
+    SelectMy () {
       this.$router.push({ path: "/AboutMy" });
     },
   },
   components: { TagOutlined },
   props: ["article"],
-  data() {
+  data () {
     return {};
   },
 };
@@ -44,10 +43,9 @@ export default {
 
 <style scoped>
 .box {
-  border-radius: 10px;
+  border-radius: 40px;
   padding: 30px 40px 30px;
-  background-color: #242429e6;
-  color: white;
+  background-color: #ffffffe8;
   transition-property: -webkit-box-shadow box-shadow;
   transition-duration: 0.3s;
   transition-timing-function: ease;
@@ -69,26 +67,23 @@ export default {
   margin-bottom: 30px;
 }
 .author {
-  color: rgba(255, 255, 255, 0.764);
   padding-right: 10px;
   font-size: 18px;
 }
 .author:hover {
-  color: aquamarine;
+  color: rgb(155, 112, 255);
   cursor: pointer;
 }
 
 .date {
-  color: #928c94;
   padding-right: 30px;
 }
 .tag {
-  color: #999;
   padding-left: 10px;
   cursor: pointer;
 }
 .tag:hover {
-  color: rgb(176, 255, 255);
+  color: rgb(155, 112, 255);
 }
 .icon {
   margin-right: 5px;
@@ -96,7 +91,6 @@ export default {
 
 /*文章主体*/
 .body {
-  color: rgba(255, 255, 255, 0.596);
   font-size: 17px;
   font-weight: 0;
   white-space: pre-wrap;

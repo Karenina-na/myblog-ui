@@ -2,22 +2,27 @@
   <div class="box">
     <div class="left">
       <div id="head">
-        <span class="title" @click="selectArticleById(article.id)">{{
+        <span class="title"
+              @click="selectArticleById(article.id)">{{
           article.title
         }}</span>
+      </div>
+      <div id="body"
+           v-text="article.messages"></div>
+      <div id="foot">
         <span class="tag">
           <delivered-procedure-outlined class="icon" />
-          <span v-for="tag in article.tags" :key="tag">{{
+          <span v-for="tag in article.tags"
+                :key="tag">{{
             " " + tag + " "
           }}</span>
         </span>
-      </div>
-      <div id="body" v-text="article.messages"></div>
-      <div id="foot">
-        <customer-service-outlined class="icon" />
-        <span class="message">{{ article.author }}</span>
-        <tag-outlined class="icon" />
-        <span class="message">{{ article.date }}</span>
+        <div style="float: right">
+          <customer-service-outlined class="icon" />
+          <span class="message">{{ article.author }}</span>
+          <tag-outlined class="icon" />
+          <span class="message">{{ article.date }}</span>
+        </div>
       </div>
     </div>
   </div>
@@ -39,7 +44,7 @@ export default {
     TagOutlined,
   },
   methods: {
-    selectArticleById(id) {
+    selectArticleById (id) {
       // sessionStorage.setItem("id", id);
       this.$store.dispatch("saveArticleId", id);
       this.$router.push({ path: "/Article" });
@@ -79,8 +84,8 @@ export default {
 
 /*标题布局*/
 .title {
-  font-size: 28px;
-  margin-left: 5px;
+  font-size: 25px;
+  margin-left: 20px;
   margin-right: 70px;
   font-weight: 700;
 
@@ -93,28 +98,6 @@ export default {
   cursor: pointer;
 }
 
-/*标签和图标*/
-.tag,
-.icon {
-  color: rgb(0 0 0 / 35%);
-}
-.icon {
-  font-size: 16px;
-  margin-right: 10px;
-
-  transition-property: -webkit-transform transform;
-  transition-duration: 0.3s;
-  transition-timing-function: ease;
-}
-.tag {
-  font-size: 14px;
-}
-.tag.icon:hover,
-.tag:hover .icon {
-  -webkit-transform: rotate(540deg);
-  transform: rotate(540deg);
-}
-
 /*文章*/
 #body {
   font-size: 14px;
@@ -124,18 +107,40 @@ export default {
   color: #80a6ba;
   white-space: pre-wrap;
   word-wrap: break-word;
+  margin-left: 5px;
+  margin-right: 5px;
 }
 
 /*名称和日期*/
 #foot {
   margin-top: 10px;
   margin-right: 10px;
-  float: right;
+}
+/*标签和图标*/
+.tag,
+.icon {
+  color: rgb(0 0 0 / 35%);
+}
+.icon {
+  font-size: 16px;
+  margin-left: 20px;
+
+  transition-property: -webkit-transform transform;
+  transition-duration: 0.3s;
+  transition-timing-function: ease;
+}
+.tag {
+  font-size: 14px;
+  float: left;
+}
+.tag.icon:hover,
+.tag:hover .icon {
+  -webkit-transform: rotate(540deg);
+  transform: rotate(540deg);
 }
 #foot .message {
   font-size: 12px;
   color: #15c1f5;
-  padding-right: 10px;
 }
 #foot .icon {
   margin-right: 4px;
