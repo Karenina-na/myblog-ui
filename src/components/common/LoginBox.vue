@@ -22,8 +22,20 @@
   </div>
 </template>
 <script type="text/javascript">
+import { setCookie, getCookie } from "@/util/Cookie.js";
+
 export default {
   name: "LoginBox",
+  mounted() {
+    let username = getCookie("MyblogUsername");
+    let password = getCookie("MyblogPassword");
+    if (username !== null && username !== "") {
+      this.username = username;
+    }
+    if (password !== null && password !== "") {
+      this.password = password;
+    }
+  },
   components: {},
   data() {
     return {
@@ -39,6 +51,8 @@ export default {
     Login() {
       let username = this.username;
       let password = this.password;
+      setCookie("MyblogUsername", username);
+      setCookie("MyblogPassword", password);
       this.$emit("PushMessage", username, password);
     },
   },

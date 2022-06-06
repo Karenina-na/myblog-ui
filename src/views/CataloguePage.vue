@@ -81,6 +81,10 @@ export default {
     let type = this.$store.getters.getType;
     let title = this.$store.getters.getTitle;
     let page = this.$store.getters.getPage;
+    if (page === "") {
+      this.$store.dispatch("saveTitle", 1);
+      page = 1;
+    }
     this.PageInfo.currentPage = page;
     if (type === "" && title === "") {
       this.GetArticlesByPage(page);

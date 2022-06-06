@@ -32,7 +32,6 @@ export default {
     this.$store.dispatch("saveAuthor", "");
     this.$store.dispatch("saveType", "");
     this.$store.dispatch("saveTitle", "");
-    this.$store.dispatch("saveArticleId", "");
     this.$store.dispatch("savePage", 1);
   },
 };
