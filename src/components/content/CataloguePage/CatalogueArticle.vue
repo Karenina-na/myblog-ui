@@ -2,18 +2,15 @@
   <div class="box">
     <div class="left">
       <div id="head">
-        <span class="title"
-              @click="selectArticleById(article.id)">{{
+        <span class="title" @click="selectArticleById(article.id)">{{
           article.title
         }}</span>
       </div>
-      <div id="body"
-           v-text="article.messages"></div>
+      <div id="body" v-text="article.messages"></div>
       <div id="foot">
         <span class="tag">
           <delivered-procedure-outlined class="icon" />
-          <span v-for="tag in article.tags"
-                :key="tag">{{
+          <span v-for="tag in article.tags" :key="tag">{{
             " " + tag + " "
           }}</span>
         </span>
@@ -44,10 +41,8 @@ export default {
     TagOutlined,
   },
   methods: {
-    selectArticleById (id) {
-      // sessionStorage.setItem("id", id);
-      this.$store.dispatch("saveArticleId", id);
-      this.$router.push({ path: "/Article" });
+    selectArticleById(id) {
+      this.$router.push({ path: "/Article", query: { ArticleId: id } });
     },
   },
 };

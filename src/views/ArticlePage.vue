@@ -42,8 +42,7 @@ export default {
   methods: {
     //文章查找
     GetArticlesById() {
-      // let id = sessionStorage.getItem("id");
-      let id = this.$store.getters.getArticleId;
+      let id = this.$route.query.ArticleId;
       SelectArticleById(id).then(
         (res) => {
           if (res.code === 20042) {

@@ -3,7 +3,6 @@
 export default {
   Type: "",
   Title: "",
-  ArticleId: "",
   Page: "",
   Flag: "",
   Author: "",

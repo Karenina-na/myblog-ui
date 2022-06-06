@@ -8,10 +8,6 @@ export const saveType = ({ commit }, type) => {
   commit('saveType', type)
 }
 
-export const saveArticleId = ({ commit }, id) => {
-  commit('saveArticleId', id)
-}
-
 export const savePage = ({ commit }, page) => {
   commit('savePage', page)
 }
