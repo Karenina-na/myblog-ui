@@ -8,7 +8,7 @@ module.exports = defineConfig({
   //配置开发环境的代理
   devServer: {
     port: 55555,
-    host: "192.168.229.131",
+    host: "localhost",
     https: false,
     open: true,
     proxy: {
