@@ -15,8 +15,8 @@
             class="tag"
             @click="SelectTag(tag)">{{ tag }}</span>
     </div>
-    <div class="body"
-         v-html="article.messages"></div>
+    <div class="body" v-html="article.messages"  v-highlight>
+         </div>
   </div>
 </template>
 
@@ -25,6 +25,9 @@ import { TagOutlined } from "@ant-design/icons-vue";
 
 export default {
   name: "ArticleBody",
+  mounted(){
+    
+  },
   methods: {
     SelectTag (tag) {
       this.$emit("PushTag", tag);
@@ -97,4 +100,5 @@ export default {
   word-wrap: break-word;
   letter-spacing: 1.2px;
 }
+
 </style>

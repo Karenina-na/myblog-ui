@@ -44,7 +44,7 @@
                  :editor="editor"
                  :defaultConfig="toolbarConfig"
                  :mode="mode" />
-        <Editor style="height: 750px; overflow-y: hidden; cursor: text"
+        <Editor style="height: 600px; overflow-y: hidden; cursor: text"
                 v-model="article.messages"
                 :defaultConfig="editorConfig"
                 :mode="mode"
@@ -260,7 +260,7 @@ export default {
 .body {
   padding-left: 50px;
   padding-right: 50px;
-  height: 850px;
+  height: 700px;
 }
 
 /*按钮*/
