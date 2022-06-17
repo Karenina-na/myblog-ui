@@ -74,6 +74,7 @@ import {
   HomeOutlined,
 } from "@ant-design/icons-vue";
 import { SelectArticleById } from "@/network/Select.js";
+import {req,man} from '@/network/request.js'
 import { UpdateArticle, AddArticle } from "@/network/Manage.js";
 import { message } from "ant-design-vue";
 
@@ -184,11 +185,24 @@ export default {
       flag: "",
 
       editor: null,
+      //编辑条设置
       toolbarConfig: {
 
       },
+      //编辑器设置
       editorConfig: {
         placeholder: "请输入内容...",
+        MENU_CONF: {
+            uploadImage: {
+              server:(process.env.NODE_ENV === 'production' ? process.env.VUE_APP_URL + "" : "/api")+"/upLoad/img",
+              fieldName: 'file',
+              headers: {
+                'Req': req,
+                 'Man': man
+              },
+            },
+          }
+
       },
       mode: "default", // or 'simple'
     };
