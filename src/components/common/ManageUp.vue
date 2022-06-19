@@ -16,6 +16,12 @@
       </template>
       编辑
     </a-menu-item>
+    <a-menu-item key="img">
+      <template #icon>
+        <appstore-outlined />
+      </template>
+      图片资源
+    </a-menu-item>
   </a-menu>
 </template>
 <script>
@@ -39,6 +45,10 @@ export default {
           this.$emit("pushFlag", "1");
           break;
         }
+        case "img": {
+          this.$emit("pushFlag", "2");
+          break;
+        }
       }
     },
   },
@@ -51,6 +61,10 @@ export default {
         }
         case "1": {
           this.current = ref(["singal"]);
+          break;
+        }
+        case "2": {
+          this.current = ref(["img"]);
           break;
         }
       }
