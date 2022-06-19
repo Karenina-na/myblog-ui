@@ -94,7 +94,13 @@ import { DeleteArticle, UpdateAboutMe } from "@/network/Manage.js";
 
 export default {
   name: "ManagerView",
-  components: { ManageUp, ArticleBody, RightButton, ArticleUpdateView,ImageUpdateView },
+  components: {
+    ManageUp,
+    ArticleBody,
+    RightButton,
+    ArticleUpdateView,
+    ImageUpdateView,
+  },
   mounted() {
     this.GetArticlesByPage(1);
     this.GetAboutMe();
@@ -342,4 +348,5 @@ export default {
   margin-top: 5px;
   margin-bottom: 5px;
 }
+
 </style>

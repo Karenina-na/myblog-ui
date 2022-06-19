@@ -8,3 +8,12 @@ export function SelectImage(Page) {
     }
     return Service(config)
 }
+
+//删除图片
+export function DeleteImage(name){
+    const config = {
+        method:'delete',
+        url:'/upLoad/img/'+name
+    }
+    return Service(config)
+}
