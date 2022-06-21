@@ -6,6 +6,12 @@
       </template>
       文字
     </a-timeline-item> -->
+    <a-timeline-item class="section" color="">
+      <template #dot>
+        <delete-outlined  style="font-size: 20px"/>
+      </template>
+      加入工具页 2022-6-21
+    </a-timeline-item>
     <a-timeline-item class="section" color="purple">
       <template #dot>
         <form-outlined style="font-size: 20px" />
@@ -57,6 +63,7 @@ import {
   CheckOutlined,
   EditOutlined,
   FormOutlined,
+  DeleteOutlined
 } from "@ant-design/icons-vue";
 
 export default {
@@ -68,6 +75,7 @@ export default {
     CheckOutlined,
     EditOutlined,
     FormOutlined,
+    DeleteOutlined
   },
   name: "TimeTree",
 };

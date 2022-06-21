@@ -129,6 +129,7 @@ export default {
     width: 100%;
     margin: 0 auto;
     z-index: 100;
+    background-color:#1c1c1d4e;
 
     -webkit-animation: flip-in-hor-top 1s cubic-bezier(0.25, 0.46, 0.45, 0.94)
       both;
@@ -142,6 +143,7 @@ export default {
     width: 850px;
     margin: 0 auto;
     z-index: 100;
+    background-color:#1c1c1d4e;
 
     -webkit-animation: flip-in-hor-top 1s cubic-bezier(0.25, 0.46, 0.45, 0.94)
       both;
@@ -156,7 +158,7 @@ export default {
   right: 0;
   margin: auto;
   width: 850px;
-  z-index: 100;
+  z-index: 99;
 
   -webkit-animation: scale-in-hor-center 1s cubic-bezier(0.25, 0.46, 0.45, 0.94)
     both;

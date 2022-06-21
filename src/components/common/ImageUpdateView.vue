@@ -13,17 +13,17 @@
       </a-popconfirm>
     </div>
   </div>
-  
-    <div class="foot">
-      <a-pagination
-        size="small"
-        v-model:current="PageInfo.currentPage"
-        v-model:total="PageInfo.totalNumber"
-        v-model:pageSize="PageInfo.pageSize"
-        show-quick-jumper
-        @change="onChange"
-      />
-    </div>
+
+  <div class="foot">
+    <a-pagination
+      size="small"
+      v-model:current="PageInfo.currentPage"
+      v-model:total="PageInfo.totalNumber"
+      v-model:pageSize="PageInfo.pageSize"
+      show-quick-jumper
+      @change="onChange"
+    />
+  </div>
 </template>
 
 <script>
@@ -38,8 +38,7 @@ export default {
       SelectImage(this.PageInfo.currentPage).then(
         (res) => {
           if (res.code === 20042) {
-            this.PageInfo.totalNumber=Number(res.totalPage)
-            console.log(this.PageInfo)
+            this.PageInfo.totalNumber = Number(res.totalPage);
             this.Image = res.data;
           } else {
             this.ERROR(res);
@@ -77,7 +76,7 @@ export default {
     },
     //改变页码
     onChange() {
-      this.GetImageByPage()
+      this.GetImageByPage();
     },
     //错误
     ERROR(res) {
@@ -138,11 +137,11 @@ export default {
 }
 
 /**页码条 */
-.foot{
-  float:left;
-  height:80px;
-  margin-top:30px;
-  margin-left:350px;
-  margin-bottom:50px;
+.foot {
+  float: left;
+  height: 80px;
+  margin-top: 30px;
+  margin-left: 350px;
+  margin-bottom: 50px;
 }
 </style>

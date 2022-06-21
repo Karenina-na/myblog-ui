@@ -54,7 +54,7 @@ export default {
           break;
         }
         case 1: {
-          console.log("分类");
+          this.$router.push({ path: "/Util" });
           break;
         }
         case 2: {
@@ -77,7 +77,7 @@ export default {
   props: ["AboutMe"],
   data() {
     return {
-      tags: ["首页", "分类", "DUNRUI妙妙屋", "关于"],
+      tags: ["首页", "工具", "DUNRUI妙妙屋", "关于"],
     };
   },
 };

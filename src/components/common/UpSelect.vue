@@ -47,7 +47,7 @@ export default {
   },
   data() {
     return {
-      tags: ["首页", "分类", "DUNRUI妙妙屋", "关于"],
+      tags: ["首页", "工具", "DUNRUI妙妙屋", "关于"],
     };
   },
   props: ["AboutMe"],

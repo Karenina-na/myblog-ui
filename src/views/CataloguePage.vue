@@ -1,6 +1,5 @@
 <template>
   <perfect-scrollbar>
-    <ParticleVue> </ParticleVue>
     <div class="catalogue Select">
       <CatalogueUp id="UpButton" :AboutMe="AboutMe"></CatalogueUp>
       <div class="body">
@@ -46,7 +45,6 @@
 
 <script scoped>
 // @ is an alias to /src
-import ParticleVue from "@/components/common/ParticleVue.vue";
 import CatalogueUp from "@/components/content/CataloguePage/CatalogueUp.vue";
 import CatalogueMy from "@/components/content/CataloguePage/CatalogueMy.vue";
 import CatalogueArticle from "@/components/content/CataloguePage/CatalogueArticle.vue";
@@ -66,7 +64,6 @@ import {
 export default {
   name: "CataloguePage",
   components: {
-    ParticleVue,
     CatalogueUp,
     CatalogueMy,
     CatalogueArticle,

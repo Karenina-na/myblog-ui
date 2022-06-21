@@ -25,7 +25,7 @@
 
 <script>
 import VantaVueGlobeWhite from "@/components/common/VantaVueGlobeWhite.vue";
-import UpSelect from "@/components/content/AboutMy/UpSelect.vue";
+import UpSelect from "@/components/common/UpSelect.vue";
 import TimeTree from "@/components/content/AboutMy/TimeTree.vue";
 import MyMessage from "@/components/content/AboutMy/MyMessage.vue";
 import { UserOutlined, CalendarOutlined } from "@ant-design/icons-vue";
@@ -74,6 +74,10 @@ export default {
           }
         );
       }
+    },
+    //错误处理
+    ERROR(err){
+      console.log(err)
     },
   },
   data() {
@@ -143,7 +147,7 @@ export default {
   text-align: center;
   margin: auto;
   width: 850px;
-  z-index: 100;
+  z-index: 99;
   background-color: #ffffffe0;
 
   transition-property: -webkit-box-shadow box-shadow;

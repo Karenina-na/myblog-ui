@@ -32,6 +32,14 @@ const routes = [
     component: () => import('../views/AboutMy.vue')
   },
   {
+    path: '/Util',
+    name: 'Util',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import('../views/UtilPage.vue')
+  },
+  {
     path: '/rootManager',
     name: 'rootManager',
     // route level code-splitting
