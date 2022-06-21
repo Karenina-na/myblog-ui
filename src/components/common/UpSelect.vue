@@ -59,7 +59,7 @@ export default {
           break;
         }
         case 1: {
-          console.log("分类");
+          this.$router.push({ path: "/Util" });
           break;
         }
         case 2: {
