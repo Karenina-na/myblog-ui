@@ -17,7 +17,16 @@ export default {
   props: ["img"],
   method: {},
   mounted() {
-    this.name = this.img.name.split("\\")[1];
+    console.log(this.img.name)
+    //区分linux与window的斜杠
+    let str1 = this.img.name.split("\\")[1];
+    let str2 = this.img.name.split("/")[4];
+    if (str2===undefined){
+      this.name=str1;
+    }
+    else {
+      this.name=str2;
+    }
   },
   data() {
     return {
