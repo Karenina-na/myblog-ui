@@ -20,7 +20,7 @@ export default {
   },
   data() {
     return {
-      tags: ["java", "python", "c与c++", "数据库", "前端", "后端"],
+      tags: ["java", "python", "c与c++", "数据库", "前端", "后端","Go"],
     };
   },
   methods: {
