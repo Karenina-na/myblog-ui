@@ -51,7 +51,15 @@ export default {
     },
     /**删除图片 */
     deleteImg(img) {
-      let name = img.name.split("\\")[1];
+      let name;
+      //区分linux与window的斜杠
+      let str1 = img.name.split("\\")[1];
+      let str2 = img.name.split("/")[4];
+      if (str2 === undefined) {
+        name = str1;
+      } else {
+        name = str2;
+      }
       DeleteImage(name).then(
         (res) => {
           if (res.code === 20021) {

@@ -17,7 +17,6 @@ export default {
   props: ["img"],
   method: {},
   mounted() {
-    console.log(this.img.name)
     //区分linux与window的斜杠
     let str1 = this.img.name.split("\\")[1];
     let str2 = this.img.name.split("/")[4];
