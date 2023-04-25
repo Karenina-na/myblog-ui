@@ -27,7 +27,6 @@ service.interceptors.request.use(config => {
 })
 
 service.interceptors.response.use(response => {
-
   return response.data
 }, err => {
   return Promise.resolve(err)
